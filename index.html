@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LPS — Líder en Seguridad</title>
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --amarillo: #FFD000;
+    --amarillo-dark: #F5A800;
+    --negro: #080808;
+    --gris-oscuro: #0f0f0f;
+    --gris: #161616;
+    --gris-borde: #242424;
+    --gris-texto: #666;
+    --blanco: #f5f5f5;
+  }
+  html { scroll-behavior: smooth; }
+  body { background: var(--negro); color: var(--blanco); font-family: 'Barlow', sans-serif; overflow-x: hidden; cursor: none; }
+
+  .cursor { width: 10px; height: 10px; background: var(--amarillo); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s; }
+  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--amarillo); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: 0.45; transition: all 0.12s ease; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 22px 60px; background: rgba(8,8,8,0.93); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,208,0,0.07); }
+  .logo-nav { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 30px; letter-spacing: -1px; line-height: 1; }
+  .l, .s { color: var(--amarillo); }
+  .logo-nav .sub { font-size: 9px; font-weight: 600; letter-spacing: 4px; color: #444; display: block; margin-top: 2px; }
+  .nav-links { display: flex; gap: 36px; align-items: center; }
+  .nav-links a { color: #aaa; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--amarillo); }
+  .btn-nav { background: var(--amarillo) !important; color: var(--negro) !important; padding: 10px 24px; border-radius: 6px; font-weight: 700 !important; }
+
+  /* HERO */
+  .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 60px 80px; position: relative; overflow: hidden; }
+  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,208,0,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,208,0,0.025) 1px, transparent 1px); background-size: 64px 64px; pointer-events: none; }
+  .hero::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: radial-gradient(ellipse at 70% 40%, rgba(255,208,0,0.055) 0%, transparent 65%); pointer-events: none; }
+  .hero-content { position: relative; z-index: 2; max-width: 720px; }
+  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,208,0,0.07); border: 1px solid rgba(255,208,0,0.18); border-radius: 100px; padding: 7px 18px; font-size: 11px; font-weight: 600; letter-spacing: 3px; color: var(--amarillo); margin-bottom: 32px; animation: fadeUp 0.6s ease both; }
+  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amarillo); animation: pulse 2s infinite; }
+  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.75)} }
+  .hero-lps { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(90px,14vw,168px); font-weight: 900; line-height: .88; letter-spacing: -5px; margin-bottom: 6px; animation: fadeUp .7s ease .1s both; }
+  .hero-lps .l,.hero-lps .s { color: var(--amarillo); text-shadow: 0 0 70px rgba(255,208,0,.28); }
+  .hero-lps .p { color: #fff; }
+  .hero-titulo { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(18px,3.5vw,36px); font-weight: 700; letter-spacing: 7px; color: #555; text-transform: uppercase; margin-bottom: 32px; animation: fadeUp .7s ease .2s both; }
+  .hero-desc { font-size: 17px; line-height: 1.75; color: #aaa; max-width: 500px; margin-bottom: 48px; font-weight: 400; animation: fadeUp .7s ease .3s both; }
+  .hero-desc strong { color: var(--blanco); font-weight: 600; }
+  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp .7s ease .4s both; }
+  .btn-primary { background: var(--amarillo); color: var(--negro); padding: 16px 38px; border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all .2s; display: inline-block; cursor: none; }
+  .btn-primary:hover { background: var(--amarillo-dark); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,208,0,.2); }
+  .btn-secondary { background: transparent; color: var(--blanco); padding: 16px 38px; border-radius: 8px; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; border: 1.5px solid #242424; transition: all .2s; display: inline-block; cursor: none; }
+  .btn-secondary:hover { border-color: var(--amarillo); color: var(--amarillo); transform: translateY(-2px); }
+  .hero-stats { position: absolute; right: 60px; bottom: 80px; display: flex; gap: 48px; z-index: 2; animation: fadeUp .8s ease .5s both; }
+  .stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 50px; font-weight: 900; color: var(--amarillo); line-height: 1; letter-spacing: -2px; }
+  .stat-label { font-size: 10px; color: #777; letter-spacing: 3px; margin-top: 4px; }
+  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
+
+  /* SECCIONES */
+  .section { padding: 100px 60px; }
+  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 5px; color: var(--amarillo); text-transform: uppercase; margin-bottom: 14px; }
+  .section-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px,5vw,64px); font-weight: 900; letter-spacing: -1.5px; line-height: 1; margin-bottom: 18px; }
+  .section-title span { color: var(--amarillo); }
+  .section-desc { font-size: 16px; color: #888; line-height: 1.7; max-width: 460px; font-weight: 400; margin-bottom: 60px; }
+
+  /* SERVICIOS */
+  .servicios-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 2px; }
+  .servicio-card { background: #0c0c0c; border: 1px solid #1e1e1e; padding: 40px 34px; position: relative; overflow: hidden; transition: border-color .3s, transform .2s; cursor: none; }
+  .servicio-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--amarillo); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
+  .servicio-card:hover::before { transform: scaleX(1); }
+  .servicio-card:hover { border-color: rgba(255,208,0,.18); transform: translateY(-4px); }
+  .card-icon { width: 50px; height: 50px; background: rgba(255,208,0,.07); border: 1px solid rgba(255,208,0,.12); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 22px; }
+  .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 10px; }
+  .card-desc { font-size: 14px; color: #999; line-height: 1.7; font-weight: 400; }
+
+  /* PLANES */
+  .planes-bg { background: #0a0a0a; }
+  .planes-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 2px; margin-top: 60px; }
+  .plan-card { background: var(--negro); border: 1px solid #1e1e1e; padding: 44px 36px; transition: all .3s; cursor: none; }
+  .plan-card.destacado { background: var(--amarillo); border-color: var(--amarillo); }
+  .plan-card:hover:not(.destacado) { border-color: rgba(255,208,0,.25); transform: translateY(-4px); }
+  .plan-badge-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-bottom: 14px; display: block; }
+  .plan-card.destacado .plan-badge-label { color: rgba(0,0,0,.45); }
+  .plan-nombre { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 900; margin-bottom: 6px; }
+  .plan-card.destacado .plan-nombre { color: var(--negro); }
+  .plan-precio { font-family: 'Barlow Condensed', sans-serif; font-size: 58px; font-weight: 900; color: var(--amarillo); line-height: 1; letter-spacing: -2px; margin-bottom: 4px; }
+  .plan-card.destacado .plan-precio { color: var(--negro); }
+  .plan-periodo { font-size: 13px; color: #888; margin-bottom: 30px; }
+  .plan-card.destacado .plan-periodo { color: rgba(0,0,0,.45); }
+  .plan-sep { height: 1px; background: #1e1e1e; margin-bottom: 26px; }
+  .plan-card.destacado .plan-sep { background: rgba(0,0,0,.15); }
+  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 34px; }
+  .plan-features li { font-size: 14px; color: #999; display: flex; align-items: center; gap: 10px; font-weight: 400; }
+  .plan-card.destacado .plan-features li { color: rgba(0,0,0,.65); }
+  .plan-features li::before { content: '✓'; width: 20px; height: 20px; background: rgba(255,208,0,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--amarillo); flex-shrink: 0; font-weight: 700; }
+  .plan-card.destacado .plan-features li::before { background: rgba(0,0,0,.1); color: var(--negro); }
+  .btn-plan { display: block; text-align: center; padding: 14px; border-radius: 6px; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all .2s; cursor: none; }
+  .btn-outline { border: 1.5px solid #242424; color: var(--blanco); }
+  .btn-outline:hover { border-color: var(--amarillo); color: var(--amarillo); }
+  .btn-dark { background: var(--negro); color: var(--amarillo); border: none; }
+  .btn-dark:hover { background: #111; transform: translateY(-1px); }
+
+  /* POR QUÉ */
+  .porque-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 60px; }
+  .porque-items { display: flex; flex-direction: column; gap: 32px; }
+  .porque-item { display: flex; gap: 20px; align-items: flex-start; }
+  .porque-num { font-family: 'Barlow Condensed', sans-serif; font-size: 46px; font-weight: 900; color: rgba(255,208,0,.12); line-height: 1; letter-spacing: -2px; flex-shrink: 0; width: 52px; }
+  .porque-titulo { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 6px; }
+  .porque-desc { font-size: 14px; color: #888; line-height: 1.7; font-weight: 400; }
+  .porque-visual { background: #0c0c0c; border: 1px solid #1e1e1e; border-radius: 16px; padding: 48px; position: relative; overflow: hidden; }
+  .porque-visual::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,208,0,.07) 0%, transparent 70%); }
+  .visual-lps { font-family: 'Barlow Condensed', sans-serif; font-size: 96px; font-weight: 900; letter-spacing: -4px; line-height: 1; margin-bottom: 16px; }
+  .visual-lps .p { color: rgba(255,255,255,.12); }
+  .visual-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
+  .tag-solid { background: var(--amarillo); color: var(--negro); padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 2px; }
+  .tag-outline { border: 1px solid #333; color: #888; padding: 6px 14px; border-radius: 100px; font-size: 11px; letter-spacing: 2px; }
+
+  /* CTA */
+  .cta-section { background: var(--amarillo); padding: 100px 60px; text-align: center; position: relative; overflow: hidden; }
+  .cta-section::before { content: 'LPS'; position: absolute; font-family: 'Barlow Condensed', sans-serif; font-size: 380px; font-weight: 900; color: rgba(0,0,0,.04); top: 50%; left: 50%; transform: translate(-50%,-50%); letter-spacing: -20px; pointer-events: none; white-space: nowrap; }
+  .cta-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(38px,6vw,72px); font-weight: 900; letter-spacing: -2px; color: var(--negro); margin-bottom: 18px; position: relative; }
+  .cta-desc { font-size: 17px; color: rgba(0,0,0,.55); margin-bottom: 44px; font-weight: 400; position: relative; }
+  .btn-cta-dark { background: var(--negro); color: var(--amarillo); padding: 18px 48px; border-radius: 8px; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all .2s; position: relative; cursor: none; }
+  .btn-cta-dark:hover { background: #111; transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,.3); }
+
+  /* FOOTER */
+  footer { background: var(--negro); border-top: 1px solid #161616; padding: 44px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
+  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 900; letter-spacing: -1px; }
+  .footer-copy { font-size: 12px; color: #666; letter-spacing: 1px; }
+
+  .wa-float { position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 26px; box-shadow: 0 8px 24px rgba(37,211,102,.3); z-index: 200; transition: transform .2s; cursor: none; animation: fadeUp 1s ease 1s both; }
+  .wa-float:hover { transform: scale(1.1); }
+
+  @media(max-width:768px){
+    nav{padding:18px 20px;}
+    .nav-links{display:none;}
+    .hero{padding:100px 20px 60px;}
+    .hero-stats{position:relative;right:auto;bottom:auto;margin-top:48px;justify-content:flex-start;}
+    .section{padding:60px 20px;}
+    .porque-grid{grid-template-columns:1fr;gap:40px;}
+    footer{padding:32px 20px;flex-direction:column;text-align:center;}
+    .cta-section{padding:60px 20px;}
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="ring"></div>
+
+<nav>
+  <div class="logo-nav">
+    <span class="l">L</span><span>P</span><span class="s">S</span>
+    <span class="sub">LÍDER EN SEGURIDAD</span>
+  </div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#planes">Planes</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#contacto" class="btn-nav">Consultar</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-content">
+    <div class="hero-badge"><span class="dot"></span>La Carlota, Córdoba · Argentina</div>
+    <div class="hero-lps">
+      <span class="l">L</span><span class="p">P</span><span class="s">S</span>
+    </div>
+    <div class="hero-titulo">Líder en Seguridad</div>
+    <p class="hero-desc">Protegemos tu <strong>hogar, negocio y campo</strong> con tecnología inteligente. Cámaras, alarmas, porteros y domótica — todo conectado desde tu celular.</p>
+    <div class="hero-ctas">
+      <a href="#planes" class="btn-primary">Ver planes</a>
+      <a href="#servicios" class="btn-secondary">Conocer más</a>
+    </div>
+  </div>
+  <div class="hero-stats">
+    <div class="stat"><div class="stat-num">+500</div><div class="stat-label">CLIENTES</div></div>
+    <div class="stat"><div class="stat-num">18</div><div class="stat-label">AÑOS</div></div>
+    <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">MONITOREO</div></div>
+  </div>
+</section>
+
+<section class="section" id="servicios">
+  <div class="section-label">Lo que hacemos</div>
+  <h2 class="section-title">Seguridad <span>completa</span><br>para cada necesidad</h2>
+  <p class="section-desc">Desde la puerta de tu casa hasta el fondo de tu campo. Un solo proveedor, una sola app.</p>
+  <div class="servicios-grid">
+    <div class="servicio-card"><div class="card-icon">📷</div><div class="card-title">Cámaras & CCTV</div><p class="card-desc">Instalación de cámaras IP HD con visión nocturna, detección de movimiento por IA y acceso remoto desde cualquier dispositivo.</p></div>
+    <div class="servicio-card"><div class="card-icon">🚨</div><div class="card-title">Sistemas de Alarma</div><p class="card-desc">Alarmas inalámbricas con sensores de movimiento y apertura. Alertas instantáneas a tu WhatsApp ante cualquier intrusión.</p></div>
+    <div class="servicio-card"><div class="card-icon">🔔</div><div class="card-title">Videoportero</div><p class="card-desc">Contestá la puerta desde cualquier lugar. Cámara 2K, audio bidireccional y apertura remota de cerradura desde el celular.</p></div>
+    <div class="servicio-card"><div class="card-icon">🏠</div><div class="card-title">Domótica</div><p class="card-desc">Automatizá luces, portones y climatización. Escenas inteligentes que se activan solas cuando llegás a tu hogar.</p></div>
+    <div class="servicio-card"><div class="card-icon">🌾</div><div class="card-title">Seguridad Rural</div><p class="card-desc">Cámaras solares 4G para zonas sin corriente, GPS para maquinaria y IA que distingue personas de animales.</p></div>
+    <div class="servicio-card"><div class="card-icon">🧯</div><div class="card-title">Matafuegos</div><p class="card-desc">Venta, recarga y mantenimiento de matafuegos. Certificaciones y recordatorios automáticos de vencimiento.</p></div>
+  </div>
+</section>
+
+<section class="section planes-bg" id="planes">
+  <div class="section-label">Precios</div>
+  <h2 class="section-title">Elegí tu <span>plan</span></h2>
+  <p class="section-desc">Todos incluyen instalación, app de monitoreo y soporte por WhatsApp.</p>
+  <div class="planes-grid">
+    <div class="plan-card">
+      <span class="plan-badge-label">Hogar</span>
+      <div class="plan-nombre">Básico</div>
+      <div class="plan-precio">$15</div>
+      <div class="plan-periodo">USD / mes + instalación</div>
+      <div class="plan-sep"></div>
+      <ul class="plan-features">
+        <li>1 videoportero con cámara</li>
+        <li>App de monitoreo incluida</li>
+        <li>Alertas por WhatsApp</li>
+        <li>Soporte técnico remoto</li>
+      </ul>
+      <a href="#contacto" class="btn-plan btn-outline">Consultar</a>
+    </div>
+    <div class="plan-card destacado">
+      <span class="plan-badge-label">⭐ MÁS ELEGIDO</span>
+      <div class="plan-nombre">Hogar Total</div>
+      <div class="plan-precio">$35</div>
+      <div class="plan-periodo">USD / mes + instalación</div>
+      <div class="plan-sep"></div>
+      <ul class="plan-features">
+        <li>Videoportero + 2 cámaras</li>
+        <li>Alarma con sensores</li>
+        <li>Detección de personas IA</li>
+        <li>App + alertas WhatsApp</li>
+        <li>Soporte prioritario 24/7</li>
+      </ul>
+      <a href="#contacto" class="btn-plan btn-dark">Quiero este plan</a>
+    </div>
+    <div class="plan-card">
+      <span class="plan-badge-label">Rural</span>
+      <div class="plan-nombre">Campo</div>
+      <div class="plan-precio">$65</div>
+      <div class="plan-periodo">USD / mes + instalación</div>
+      <div class="plan-sep"></div>
+      <ul class="plan-features">
+        <li>4 cámaras solares 4G</li>
+        <li>GPS para maquinaria</li>
+        <li>IA detecta personas/vehículos</li>
+        <li>Dashboard web unificado</li>
+        <li>Alertas WhatsApp al instante</li>
+      </ul>
+      <a href="#contacto" class="btn-plan btn-outline">Consultar</a>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="nosotros">
+  <div class="section-label">Por qué elegirnos</div>
+  <h2 class="section-title">18 años<br><span>cuidando la región</span></h2>
+  <div class="porque-grid">
+    <div class="porque-items">
+      <div class="porque-item"><div class="porque-num">01</div><div><div class="porque-titulo">Empresa local de La Carlota</div><p class="porque-desc">Conocemos la región, llegamos rápido y te atendemos en persona. No somos un call center — somos tus vecinos.</p></div></div>
+      <div class="porque-item"><div class="porque-num">02</div><div><div class="porque-titulo">Todo en una sola app</div><p class="porque-desc">Cámaras, alarma, portero y campo en una plataforma. Sin contraseñas múltiples ni apps distintas.</p></div></div>
+      <div class="porque-item"><div class="porque-num">03</div><div><div class="porque-titulo">Alertas por WhatsApp</div><p class="porque-desc">Te avisamos al instante cuando algo pasa. Usamos el WhatsApp que ya tenés — sin apps raras.</p></div></div>
+      <div class="porque-item"><div class="porque-num">04</div><div><div class="porque-titulo">Sin permanencia obligatoria</div><p class="porque-desc">Probá el servicio sin compromisos. Si no quedás conforme, no te cobramos ni un mes extra.</p></div></div>
+    </div>
+    <div class="porque-visual">
+      <div class="visual-lps"><span class="l">L</span><span class="p">P</span><span class="s">S</span></div>
+      <p style="color:#888;font-size:14px;line-height:1.7;font-weight:400;">Desde matafuegos hasta inteligencia artificial — en LPS evolucionamos con la tecnología para darte siempre lo mejor.</p>
+      <div class="visual-tags">
+        <span class="tag-solid">ALARMAS</span>
+        <span class="tag-outline">CÁMARAS</span>
+        <span class="tag-solid">DOMÓTICA</span>
+        <span class="tag-outline">MATAFUEGOS</span>
+        <span class="tag-outline">GPS RURAL</span>
+        <span class="tag-solid">PORTEROS</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══ 19 AÑOS ══ -->
+<section class="section" style="background:#0a0a0a;overflow:hidden;">
+  <div class="section-label">Nuestra historia</div>
+  <h2 class="section-title">Desde <span>2007</span> protegiendo<br>La Carlota</h2>
+  <p class="section-desc">18 años de trabajo, confianza y crecimiento junto a nuestra comunidad.</p>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;">
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2007</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">FUNDACION</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Los inicios</div>
+      <p style="font-size:13px;color:#888;line-height:1.6;">Arrancamos con matafuegos y prevencion contra incendios en La Carlota.</p>
+    </div>
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2012</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">EXPANSION</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Alarmas y CCTV</div>
+      <p style="font-size:13px;color:#888;line-height:1.6;">Incorporamos sistemas de alarmas y camaras para hogares y comercios.</p>
+    </div>
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2018</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">TECNOLOGIA</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Domotica y Smart</div>
+      <p style="font-size:13px;color:#888;line-height:1.6;">Sumamos automatizacion del hogar, porteros inteligentes y control remoto.</p>
+    </div>
+    <div style="background:var(--amarillo);border:1px solid var(--amarillo);padding:36px 28px;position:relative;overflow:hidden;">
+      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(0,0,0,0.06);line-height:1;">2025</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:rgba(0,0,0,0.45);letter-spacing:3px;margin-bottom:10px;">HOY</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;color:#111;">IA y Campo</div>
+      <p style="font-size:13px;color:rgba(0,0,0,0.6);line-height:1.6;">Seguridad rural con IA, GPS para maquinaria y plataforma digital unificada.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ══ GALERIA ══ -->
+<section class="section">
+  <div class="section-label">Nuestros trabajos</div>
+  <h2 class="section-title">Instalaciones <span>reales</span></h2>
+  <p class="section-desc">Cada instalacion es unica. Algunos trabajos realizados en la region.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
+    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
+      <div style="font-size:36px;">📷</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CAMARAS EXTERIOR</div>
+    </div>
+    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
+      <div style="font-size:36px;">🚨</div><div style="font-size:11px;color:#555;letter-spacing:2px;">ALARMA COMERCIO</div>
+    </div>
+    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
+      <div style="font-size:36px;">🌾</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CAMARA RURAL</div>
+    </div>
+    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
+      <div style="font-size:36px;">🔔</div><div style="font-size:11px;color:#555;letter-spacing:2px;">VIDEOPORTERO</div>
+    </div>
+    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
+      <div style="font-size:36px;">🏠</div><div style="font-size:11px;color:#555;letter-spacing:2px;">DOMOTICA HOGAR</div>
+    </div>
+    <div style="background:rgba(255,208,0,0.05);border:1px dashed rgba(255,208,0,0.2);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
+      <div style="font-size:13px;color:var(--amarillo);letter-spacing:2px;font-weight:700;">+ TUS FOTOS</div>
+      <div style="font-size:11px;color:#444;text-align:center;padding:0 20px;">Envianos fotos de tus trabajos</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ TESTIMONIOS ══ -->
+<section class="section" style="background:#0a0a0a;">
+  <div class="section-label">Lo que dicen nuestros clientes</div>
+  <h2 class="section-title">18 años de <span>confianza</span></h2>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;margin-top:60px;">
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
+      <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
+      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Instalaron las camaras en el negocio y puedo ver todo desde el celular. Excelente servicio y respuesta rapida.</p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">R</div>
+        <div><div style="font-size:14px;font-weight:600;">Roberto M.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Comercio - La Carlota</div></div>
+      </div>
+    </div>
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
+      <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
+      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Los matafuegos siempre al dia. Te avisan antes de que venzan. Muy profesionales y puntuales.</p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">M</div>
+        <div><div style="font-size:14px;font-weight:600;">Maria L.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Hogar - Ucacha</div></div>
+      </div>
+    </div>
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
+      <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
+      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Pusieron camaras solares en el campo y me mandan alerta al WhatsApp si entra alguien. Una tranquilidad enorme.</p>
+      <div style="display:flex;align-items:center;gap:12px;">
+        <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">C</div>
+        <div><div style="font-size:14px;font-weight:600;">Carlos P.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Campo - Zona rural</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══ MAPA + FORMULARIO ══ -->
+<section class="section">
+  <div class="section-label">Encontranos</div>
+  <h2 class="section-title">Veni a <span>visitarnos</span></h2>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:60px;">
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;overflow:hidden;min-height:420px;position:relative;">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.5!2d-63.2927!3d-33.4267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cc39b0e0000001%3A0x1!2sAv.+Doctor+Enrique+Gauna+1381%2C+La+Carlota%2C+C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1700000000000" width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg);position:absolute;inset:0;" allowfullscreen="" loading="lazy"></iframe>
+      <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:24px 20px;pointer-events:none;">
+        <div style="font-size:13px;color:#aaa;">Av. Dr. Enrique Gauna 1381 - La Carlota, Cordoba</div>
+      </div>
+    </div>
+    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:48px 40px;">
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;margin-bottom:8px;">Escribinos</div>
+      <p style="font-size:13px;color:#666;margin-bottom:32px;">Te respondemos en menos de 24hs.</p>
+      <div style="display:flex;flex-direction:column;gap:16px;">
+        <div>
+          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">NOMBRE</label>
+          <input id="f-nombre" type="text" placeholder="Tu nombre" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"/>
+        </div>
+        <div>
+          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">TELEFONO / WHATSAPP</label>
+          <input id="f-tel" type="tel" placeholder="358 XXX-XXXX" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"/>
+        </div>
+        <div>
+          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">ME INTERESA</label>
+          <select id="f-servicio" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#aaa;font-family:'Barlow',sans-serif;font-size:14px;outline:none;">
+            <option>Camaras y CCTV</option>
+            <option>Sistema de Alarma</option>
+            <option>Videoportero</option>
+            <option>Seguridad Rural / Campo</option>
+            <option>Domotica</option>
+            <option>Matafuegos</option>
+            <option>Plan Hogar Total</option>
+          </select>
+        </div>
+        <div>
+          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">MENSAJE</label>
+          <textarea id="f-msg" placeholder="Contanos que necesitas..." rows="3" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;resize:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"></textarea>
+        </div>
+        <button onclick="enviarWA()" style="background:var(--amarillo);color:#111;border:none;border-radius:6px;padding:16px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;width:100%;" onmouseover="this.style.background='#F5A800'" onmouseout="this.style.background='#FFD000'">
+          Enviar por WhatsApp
+        </button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+function enviarWA() {
+  const nombre = document.getElementById('f-nombre').value || 'sin nombre';
+  const tel = document.getElementById('f-tel').value || 'sin telefono';
+  const servicio = document.getElementById('f-servicio').value;
+  const msg = document.getElementById('f-msg').value || '';
+  const texto = 'Hola LPS! Soy ' + nombre + ', tel: ' + tel + '. Me interesa: ' + servicio + (msg ? '. ' + msg : '');
+  window.open('https://wa.me/5493584602508?text=' + encodeURIComponent(texto), '_blank');
+}
+</script>
+
+<section class="cta-section" id="contacto-final">
+  <h2 class="cta-title">¿Listo para proteger<br>lo que más importa?</h2>
+  <p class="cta-desc">Contactanos hoy y te armamos una solución a medida sin costo.</p>
+  <a href="https://wa.me/5493584602508?text=Hola%20LPS%2C%20quiero%20información%20sobre%20seguridad" class="btn-cta-dark" target="_blank">💬 Escribinos por WhatsApp</a>
+  <div style="margin-top:44px;display:flex;gap:48px;justify-content:center;flex-wrap:wrap;position:relative;">
+    <div style="text-align:center;">
+      <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">DIRECCIÓN</div>
+      <div style="font-size:14px;color:rgba(0,0,0,0.6);font-weight:500;line-height:1.6;">Av. Dr. Enrique Gauna 1381<br>La Carlota, Córdoba</div>
+    </div>
+    <div style="width:1px;background:rgba(0,0,0,0.1);"></div>
+    <div style="text-align:center;">
+      <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">TELÉFONO</div>
+      <div style="font-size:14px;font-weight:500;"><a href="tel:+5493584602508" style="color:rgba(0,0,0,0.6);text-decoration:none;">358 460-2508</a></div>
+    </div>
+    <div style="width:1px;background:rgba(0,0,0,0.1);"></div>
+    <div style="text-align:center;">
+      <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">EMAIL</div>
+      <div style="font-size:14px;font-weight:500;"><a href="/cdn-cgi/l/email-protection#2b475b5847424f4e594e45584e4c5e59424f4a4f6b4c464a424705484446" style="color:rgba(0,0,0,0.6);text-decoration:none;"><span class="__cf_email__" data-cfemail="137f63607f7a777661767d60767466617a77727753747e727a7f3d707c7e">[email&#160;protected]</span></a></div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-logo"><span class="l">L</span><span>P</span><span class="s">S</span> <span style="font-size:11px;color:#2a2a2a;margin-left:10px;letter-spacing:3px;font-family:'Barlow Condensed',sans-serif;font-weight:600;">LÍDER EN SEGURIDAD</span></div>
+  <div style="display:flex;flex-direction:column;gap:6px;text-align:center;">
+    <div style="font-size:12px;color:#333;letter-spacing:1px;">📍 Av. Dr. Enrique Gauna 1381 · La Carlota, Córdoba</div>
+    <div style="font-size:12px;color:#333;letter-spacing:1px;">📞 <a href="tel:+5493584602508" style="color:#444;text-decoration:none;">358 460-2508</a> &nbsp;·&nbsp; ✉️ <a href="/cdn-cgi/l/email-protection#325e42415e5b565740575c41575547405b56535672555f535b5e1c515d5f" style="color:#444;text-decoration:none;"><span class="__cf_email__" data-cfemail="6905191a05000d0c1b0c071a0c0e1c1b000d080d290e04080005470a0604">[email&#160;protected]</span></a></div>
+  </div>
+  <div class="footer-copy">© 2007–2025 LPS Líder en Seguridad</div>
+</footer>
+
+<a href="https://wa.me/5493584602508" class="wa-float" target="_blank">💬</a>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('ring');
+  document.addEventListener('mousemove', e => {
+    cursor.style.left = e.clientX + 'px';
+    cursor.style.top = e.clientY + 'px';
+    setTimeout(() => { ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px'; }, 65);
+  });
+
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(e => {
+      if
