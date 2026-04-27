@@ -4,6 +4,7 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>LPS — Líder en Seguridad</title>
+<meta name="description" content="LPS Líder en Seguridad — 19 años protegiendo hogares, comercios y campo en La Carlota, Córdoba. Matafuegos, cámaras, alarmas, domótica, control de plagas y capacitaciones."/>
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -128,8 +129,10 @@
   .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 900; letter-spacing: -1px; }
   .footer-copy { font-size: 12px; color: #666; letter-spacing: 1px; }
 
-  .wa-float { position: fixed; bottom: 30px; right: 30px; width: 56px; height: 56px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; font-size: 26px; box-shadow: 0 8px 24px rgba(37,211,102,.3); z-index: 200; transition: transform .2s; cursor: none; animation: fadeUp 1s ease 1s both; }
-  .wa-float:hover { transform: scale(1.1); }
+  /* WA FLOAT */
+  .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; border-radius: 50px; display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 14px 22px; box-shadow: 0 8px 24px rgba(37,211,102,.35); z-index: 200; transition: all .2s; cursor: none; animation: fadeUp 1s ease 1s both; }
+  .wa-float:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 12px 32px rgba(37,211,102,.45); }
+  .wa-float span { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 1px; }
 
   @media(max-width:768px){
     nav{padding:18px 20px;}
@@ -140,6 +143,7 @@
     .porque-grid{grid-template-columns:1fr;gap:40px;}
     footer{padding:32px 20px;flex-direction:column;text-align:center;}
     .cta-section{padding:60px 20px;}
+    .wa-float span{display:none;}
   }
 </style>
 </head>
@@ -161,6 +165,7 @@
   </div>
 </nav>
 
+<!-- HERO -->
 <section class="hero">
   <div class="hero-grid"></div>
   <div class="hero-content">
@@ -171,31 +176,72 @@
     <div class="hero-titulo">Líder en Seguridad</div>
     <p class="hero-desc">Protegemos tu <strong>hogar, negocio y campo</strong> con tecnología inteligente. Cámaras, alarmas, porteros y domótica — todo conectado desde tu celular.</p>
     <div class="hero-ctas">
-      <a href="#planes" class="btn-primary">Ver planes</a>
-      <a href="#servicios" class="btn-secondary">Conocer más</a>
+      <a href="#contacto" class="btn-primary">Pedir presupuesto</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
     </div>
   </div>
   <div class="hero-stats">
     <div class="stat"><div class="stat-num">+500</div><div class="stat-label">CLIENTES</div></div>
-    <div class="stat"><div class="stat-num">18</div><div class="stat-label">AÑOS</div></div>
+    <div class="stat"><div class="stat-num">19</div><div class="stat-label">AÑOS</div></div>
     <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">MONITOREO</div></div>
   </div>
 </section>
 
+<!-- SERVICIOS -->
 <section class="section" id="servicios">
   <div class="section-label">Lo que hacemos</div>
   <h2 class="section-title">Seguridad <span>completa</span><br>para cada necesidad</h2>
-  <p class="section-desc">Desde la puerta de tu casa hasta el fondo de tu campo. Un solo proveedor, una sola app.</p>
+  <p class="section-desc">Desde la puerta de tu casa hasta el fondo de tu campo. Un solo proveedor, todo resuelto.</p>
   <div class="servicios-grid">
-    <div class="servicio-card"><div class="card-icon">📷</div><div class="card-title">Cámaras & CCTV</div><p class="card-desc">Instalación de cámaras IP HD con visión nocturna, detección de movimiento por IA y acceso remoto desde cualquier dispositivo.</p></div>
-    <div class="servicio-card"><div class="card-icon">🚨</div><div class="card-title">Sistemas de Alarma</div><p class="card-desc">Alarmas inalámbricas con sensores de movimiento y apertura. Alertas instantáneas a tu WhatsApp ante cualquier intrusión.</p></div>
-    <div class="servicio-card"><div class="card-icon">🔔</div><div class="card-title">Videoportero</div><p class="card-desc">Contestá la puerta desde cualquier lugar. Cámara 2K, audio bidireccional y apertura remota de cerradura desde el celular.</p></div>
-    <div class="servicio-card"><div class="card-icon">🏠</div><div class="card-title">Domótica</div><p class="card-desc">Automatizá luces, portones y climatización. Escenas inteligentes que se activan solas cuando llegás a tu hogar.</p></div>
-    <div class="servicio-card"><div class="card-icon">🌾</div><div class="card-title">Seguridad Rural</div><p class="card-desc">Cámaras solares 4G para zonas sin corriente, GPS para maquinaria y IA que distingue personas de animales.</p></div>
-    <div class="servicio-card"><div class="card-icon">🧯</div><div class="card-title">Matafuegos</div><p class="card-desc">Venta, recarga y mantenimiento de matafuegos. Certificaciones y recordatorios automáticos de vencimiento.</p></div>
+    <div class="servicio-card">
+      <div class="card-icon">📷</div>
+      <div class="card-title">Cámaras & CCTV</div>
+      <p class="card-desc">Instalación de cámaras IP HD con visión nocturna, detección de movimiento por IA y acceso remoto desde cualquier dispositivo.</p>
+    </div>
+    <div class="servicio-card">
+      <div class="card-icon">🚨</div>
+      <div class="card-title">Sistemas de Alarma</div>
+      <p class="card-desc">Alarmas inalámbricas con sensores de movimiento y apertura. Alertas instantáneas a tu WhatsApp ante cualquier intrusión.</p>
+    </div>
+    <div class="servicio-card">
+      <div class="card-icon">🔔</div>
+      <div class="card-title">Videoportero</div>
+      <p class="card-desc">Contestá la puerta desde cualquier lugar. Cámara 2K, audio bidireccional y apertura remota de cerradura desde el celular.</p>
+    </div>
+    <div class="servicio-card">
+      <div class="card-icon">🏠</div>
+      <div class="card-title">Domótica</div>
+      <p class="card-desc">Automatizá luces, portones y climatización. Escenas inteligentes que se activan solas cuando llegás a tu hogar.</p>
+    </div>
+    <div class="servicio-card">
+      <div class="card-icon">🌾</div>
+      <div class="card-title">Seguridad Rural</div>
+      <p class="card-desc">Cámaras solares 4G para zonas sin corriente, GPS para maquinaria y IA que distingue personas de animales.</p>
+    </div>
+    <div class="servicio-card">
+      <div class="card-icon">🧯</div>
+      <div class="card-title">Matafuegos</div>
+      <p class="card-desc">Venta, recarga y mantenimiento de matafuegos certificados. Recordatorios automáticos de vencimiento para tu tranquilidad.</p>
+    </div>
+    <div class="servicio-card">
+      <div class="card-icon">🐛</div>
+      <div class="card-title">Control de Plagas</div>
+      <p class="card-desc">Fumigación y desinfección profesional con productos certificados. Cucarachas, roedores, insectos y más — para hogares, comercios y depósitos.</p>
+    </div>
+    <div class="servicio-card">
+      <div class="card-icon">🎓</div>
+      <div class="card-title">Capacitaciones</div>
+      <p class="card-desc">Capacitamos a tu equipo en uso de extintores, evacuación de emergencia y prevención de incendios. Certificado incluido.</p>
+    </div>
+    <div class="servicio-card">
+      <div class="card-icon">⛑️</div>
+      <div class="card-title">Seguridad Industrial</div>
+      <p class="card-desc">Venta de EPP: cascos, guantes, anteojos de seguridad, protectores auditivos, cinta reflectiva y calzado antideslizante.</p>
+    </div>
   </div>
 </section>
 
+<!-- PLANES -->
 <section class="section planes-bg" id="planes">
   <div class="section-label">Precios</div>
   <h2 class="section-title">Elegí tu <span>plan</span></h2>
@@ -248,9 +294,10 @@
   </div>
 </section>
 
+<!-- POR QUÉ -->
 <section class="section" id="nosotros">
   <div class="section-label">Por qué elegirnos</div>
-  <h2 class="section-title">18 años<br><span>cuidando la región</span></h2>
+  <h2 class="section-title">19 años<br><span>cuidando la región</span></h2>
   <div class="porque-grid">
     <div class="porque-items">
       <div class="porque-item"><div class="porque-num">01</div><div><div class="porque-titulo">Empresa local de La Carlota</div><p class="porque-desc">Conocemos la región, llegamos rápido y te atendemos en persona. No somos un call center — somos tus vecinos.</p></div></div>
@@ -267,66 +314,67 @@
         <span class="tag-solid">DOMÓTICA</span>
         <span class="tag-outline">MATAFUEGOS</span>
         <span class="tag-outline">GPS RURAL</span>
-        <span class="tag-solid">PORTEROS</span>
+        <span class="tag-solid">PLAGAS</span>
+        <span class="tag-outline">CAPACITACIONES</span>
+        <span class="tag-solid">EPP</span>
       </div>
     </div>
   </div>
 </section>
 
-
-<!-- ══ 19 AÑOS ══ -->
+<!-- HISTORIA -->
 <section class="section" style="background:#0a0a0a;overflow:hidden;">
   <div class="section-label">Nuestra historia</div>
   <h2 class="section-title">Desde <span>2007</span> protegiendo<br>La Carlota</h2>
-  <p class="section-desc">18 años de trabajo, confianza y crecimiento junto a nuestra comunidad.</p>
+  <p class="section-desc">19 años de trabajo, confianza y crecimiento junto a nuestra comunidad.</p>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;">
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2007</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">FUNDACION</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">FUNDACIÓN</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Los inicios</div>
-      <p style="font-size:13px;color:#888;line-height:1.6;">Arrancamos con matafuegos y prevencion contra incendios en La Carlota.</p>
+      <p style="font-size:13px;color:#888;line-height:1.6;">Arrancamos con matafuegos y prevención contra incendios en La Carlota.</p>
     </div>
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2012</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">EXPANSION</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">EXPANSIÓN</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Alarmas y CCTV</div>
-      <p style="font-size:13px;color:#888;line-height:1.6;">Incorporamos sistemas de alarmas y camaras para hogares y comercios.</p>
+      <p style="font-size:13px;color:#888;line-height:1.6;">Incorporamos sistemas de alarmas y cámaras para hogares y comercios.</p>
     </div>
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
       <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2018</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">TECNOLOGIA</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Domotica y Smart</div>
-      <p style="font-size:13px;color:#888;line-height:1.6;">Sumamos automatizacion del hogar, porteros inteligentes y control remoto.</p>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">TECNOLOGÍA</div>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Domótica y Smart</div>
+      <p style="font-size:13px;color:#888;line-height:1.6;">Sumamos automatización del hogar, porteros inteligentes y control remoto.</p>
     </div>
     <div style="background:var(--amarillo);border:1px solid var(--amarillo);padding:36px 28px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(0,0,0,0.06);line-height:1;">2025</div>
+      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(0,0,0,0.06);line-height:1;">2026</div>
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:rgba(0,0,0,0.45);letter-spacing:3px;margin-bottom:10px;">HOY</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;color:#111;">IA y Campo</div>
-      <p style="font-size:13px;color:rgba(0,0,0,0.6);line-height:1.6;">Seguridad rural con IA, GPS para maquinaria y plataforma digital unificada.</p>
+      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;color:#111;">19 años y creciendo</div>
+      <p style="font-size:13px;color:rgba(0,0,0,0.6);line-height:1.6;">IA, seguridad rural, control de plagas, EPP y plataforma digital unificada.</p>
     </div>
   </div>
 </section>
 
-<!-- ══ GALERIA ══ -->
+<!-- GALERIA -->
 <section class="section">
   <div class="section-label">Nuestros trabajos</div>
   <h2 class="section-title">Instalaciones <span>reales</span></h2>
-  <p class="section-desc">Cada instalacion es unica. Algunos trabajos realizados en la region.</p>
+  <p class="section-desc">Cada instalación es única. Algunos trabajos realizados en la región.</p>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
     <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">📷</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CAMARAS EXTERIOR</div>
+      <div style="font-size:36px;">📷</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CÁMARAS EXTERIOR</div>
     </div>
     <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
       <div style="font-size:36px;">🚨</div><div style="font-size:11px;color:#555;letter-spacing:2px;">ALARMA COMERCIO</div>
     </div>
     <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">🌾</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CAMARA RURAL</div>
+      <div style="font-size:36px;">🌾</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CÁMARA RURAL</div>
     </div>
     <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">🔔</div><div style="font-size:11px;color:#555;letter-spacing:2px;">VIDEOPORTERO</div>
+      <div style="font-size:36px;">🐛</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CONTROL DE PLAGAS</div>
     </div>
     <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">🏠</div><div style="font-size:11px;color:#555;letter-spacing:2px;">DOMOTICA HOGAR</div>
+      <div style="font-size:36px;">🧯</div><div style="font-size:11px;color:#555;letter-spacing:2px;">MATAFUEGOS</div>
     </div>
     <div style="background:rgba(255,208,0,0.05);border:1px dashed rgba(255,208,0,0.2);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
       <div style="font-size:13px;color:var(--amarillo);letter-spacing:2px;font-weight:700;">+ TUS FOTOS</div>
@@ -335,80 +383,91 @@
   </div>
 </section>
 
-<!-- ══ TESTIMONIOS ══ -->
+<!-- TESTIMONIOS -->
 <section class="section" style="background:#0a0a0a;">
   <div class="section-label">Lo que dicen nuestros clientes</div>
-  <h2 class="section-title">18 años de <span>confianza</span></h2>
+  <h2 class="section-title">19 años de <span>confianza</span></h2>
   <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;margin-top:60px;">
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
       <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
-      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Instalaron las camaras en el negocio y puedo ver todo desde el celular. Excelente servicio y respuesta rapida.</p>
+      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Instalaron las cámaras en el negocio y puedo ver todo desde el celular. Excelente servicio y respuesta rápida.</p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">R</div>
-        <div><div style="font-size:14px;font-weight:600;">Roberto M.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Comercio - La Carlota</div></div>
+        <div><div style="font-size:14px;font-weight:600;">Roberto M.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Comercio — La Carlota</div></div>
       </div>
     </div>
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
       <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
-      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Los matafuegos siempre al dia. Te avisan antes de que venzan. Muy profesionales y puntuales.</p>
+      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Los matafuegos siempre al día. Te avisan antes de que venzan. Muy profesionales y puntuales.</p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">M</div>
-        <div><div style="font-size:14px;font-weight:600;">Maria L.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Hogar - Ucacha</div></div>
+        <div><div style="font-size:14px;font-weight:600;">María L.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Hogar — Ucacha</div></div>
       </div>
     </div>
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
       <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
-      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Pusieron camaras solares en el campo y me mandan alerta al WhatsApp si entra alguien. Una tranquilidad enorme.</p>
+      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Pusieron cámaras solares en el campo y me mandan alerta al WhatsApp si entra alguien. Una tranquilidad enorme.</p>
       <div style="display:flex;align-items:center;gap:12px;">
         <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">C</div>
-        <div><div style="font-size:14px;font-weight:600;">Carlos P.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Campo - Zona rural</div></div>
+        <div><div style="font-size:14px;font-weight:600;">Carlos P.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Campo — Zona rural</div></div>
       </div>
     </div>
   </div>
 </section>
 
-<!-- ══ MAPA + FORMULARIO ══ -->
-<section class="section">
+<!-- FORMULARIO DE CONTACTO -->
+<section class="section" id="contacto">
   <div class="section-label">Encontranos</div>
-  <h2 class="section-title">Veni a <span>visitarnos</span></h2>
+  <h2 class="section-title">Pedí tu <span>presupuesto</span></h2>
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:60px;">
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;overflow:hidden;min-height:420px;position:relative;">
       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.5!2d-63.2927!3d-33.4267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cc39b0e0000001%3A0x1!2sAv.+Doctor+Enrique+Gauna+1381%2C+La+Carlota%2C+C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1700000000000" width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg);position:absolute;inset:0;" allowfullscreen="" loading="lazy"></iframe>
       <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:24px 20px;pointer-events:none;">
-        <div style="font-size:13px;color:#aaa;">Av. Dr. Enrique Gauna 1381 - La Carlota, Cordoba</div>
+        <div style="font-size:13px;color:#aaa;">Av. Dr. Enrique Gauna 1381 — La Carlota, Córdoba</div>
+        <div style="font-size:12px;color:#666;margin-top:4px;">Lunes a Viernes 8 a 12 y 16 a 19:30 · Sábados 7 a 12</div>
       </div>
     </div>
     <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:48px 40px;">
       <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;margin-bottom:8px;">Escribinos</div>
-      <p style="font-size:13px;color:#666;margin-bottom:32px;">Te respondemos en menos de 24hs.</p>
+      <p style="font-size:13px;color:#666;margin-bottom:32px;">Te respondemos en menos de 24hs. Sin compromiso.</p>
       <div style="display:flex;flex-direction:column;gap:16px;">
         <div>
           <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">NOMBRE</label>
           <input id="f-nombre" type="text" placeholder="Tu nombre" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"/>
         </div>
         <div>
-          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">TELEFONO / WHATSAPP</label>
+          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">TELÉFONO / WHATSAPP</label>
           <input id="f-tel" type="tel" placeholder="358 XXX-XXXX" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"/>
         </div>
         <div>
           <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">ME INTERESA</label>
-          <select id="f-servicio" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#aaa;font-family:'Barlow',sans-serif;font-size:14px;outline:none;">
-            <option>Camaras y CCTV</option>
+          <select id="f-servicio" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#aaa;font-family:'Barlow',sans-serif;font-size:14px;outline:none;cursor:pointer;">
+            <option value="">— Seleccioná un servicio —</option>
+            <option>Cámaras y CCTV</option>
             <option>Sistema de Alarma</option>
             <option>Videoportero</option>
+            <option>Domótica</option>
             <option>Seguridad Rural / Campo</option>
-            <option>Domotica</option>
-            <option>Matafuegos</option>
+            <option>Matafuegos — recarga o venta</option>
+            <option>Control de Plagas</option>
+            <option>Capacitaciones contra incendios</option>
+            <option>Seguridad Industrial / EPP</option>
             <option>Plan Hogar Total</option>
+            <option>Varios servicios</option>
           </select>
         </div>
         <div>
-          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">MENSAJE</label>
-          <textarea id="f-msg" placeholder="Contanos que necesitas..." rows="3" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;resize:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"></textarea>
+          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">LOCALIDAD</label>
+          <input id="f-localidad" type="text" placeholder="Tu ciudad o localidad" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"/>
         </div>
-        <button onclick="enviarWA()" style="background:var(--amarillo);color:#111;border:none;border-radius:6px;padding:16px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;width:100%;" onmouseover="this.style.background='#F5A800'" onmouseout="this.style.background='#FFD000'">
-          Enviar por WhatsApp
+        <div>
+          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">MENSAJE (opcional)</label>
+          <textarea id="f-msg" placeholder="Contanos qué necesitás..." rows="3" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;resize:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"></textarea>
+        </div>
+        <button onclick="enviarWA()" style="background:var(--amarillo);color:#111;border:none;border-radius:6px;padding:16px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;" onmouseover="this.style.background='#F5A800'" onmouseout="this.style.background='#FFD000'">
+          <span>💬</span> Enviar por WhatsApp
         </button>
+        <div style="font-size:11px;color:#444;text-align:center;letter-spacing:1px;">Te respondemos en menos de 24 horas</div>
       </div>
     </div>
   </div>
@@ -416,15 +475,20 @@
 
 <script>
 function enviarWA() {
-  const nombre = document.getElementById('f-nombre').value || 'sin nombre';
-  const tel = document.getElementById('f-tel').value || 'sin telefono';
-  const servicio = document.getElementById('f-servicio').value;
-  const msg = document.getElementById('f-msg').value || '';
-  const texto = 'Hola LPS! Soy ' + nombre + ', tel: ' + tel + '. Me interesa: ' + servicio + (msg ? '. ' + msg : '');
+  const nombre = document.getElementById('f-nombre').value.trim() || 'sin nombre';
+  const tel = document.getElementById('f-tel').value.trim() || 'sin teléfono';
+  const servicio = document.getElementById('f-servicio').value || 'consulta general';
+  const localidad = document.getElementById('f-localidad').value.trim();
+  const msg = document.getElementById('f-msg').value.trim();
+  let texto = 'Hola LPS! Soy ' + nombre + ', tel: ' + tel;
+  if (localidad) texto += ', de ' + localidad;
+  texto += '. Me interesa: ' + servicio;
+  if (msg) texto += '. ' + msg;
   window.open('https://wa.me/5493584602508?text=' + encodeURIComponent(texto), '_blank');
 }
 </script>
 
+<!-- CTA FINAL -->
 <section class="cta-section" id="contacto-final">
   <h2 class="cta-title">¿Listo para proteger<br>lo que más importa?</h2>
   <p class="cta-desc">Contactanos hoy y te armamos una solución a medida sin costo.</p>
@@ -442,7 +506,12 @@ function enviarWA() {
     <div style="width:1px;background:rgba(0,0,0,0.1);"></div>
     <div style="text-align:center;">
       <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">EMAIL</div>
-      <div style="font-size:14px;font-weight:500;"><a href="/cdn-cgi/l/email-protection#2b475b5847424f4e594e45584e4c5e59424f4a4f6b4c464a424705484446" style="color:rgba(0,0,0,0.6);text-decoration:none;"><span class="__cf_email__" data-cfemail="137f63607f7a777661767d60767466617a77727753747e727a7f3d707c7e">[email&#160;protected]</span></a></div>
+      <div style="font-size:14px;font-weight:500;"><a href="mailto:lpsliderenseguridad@gmail.com" style="color:rgba(0,0,0,0.6);text-decoration:none;">lpsliderenseguridad@gmail.com</a></div>
+    </div>
+    <div style="width:1px;background:rgba(0,0,0,0.1);"></div>
+    <div style="text-align:center;">
+      <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">HORARIO</div>
+      <div style="font-size:13px;color:rgba(0,0,0,0.6);font-weight:500;line-height:1.6;">Lun-Vie 8-12 y 16-19:30<br>Sáb 7-12</div>
     </div>
   </div>
 </section>
@@ -451,14 +520,18 @@ function enviarWA() {
   <div class="footer-logo"><span class="l">L</span><span>P</span><span class="s">S</span> <span style="font-size:11px;color:#2a2a2a;margin-left:10px;letter-spacing:3px;font-family:'Barlow Condensed',sans-serif;font-weight:600;">LÍDER EN SEGURIDAD</span></div>
   <div style="display:flex;flex-direction:column;gap:6px;text-align:center;">
     <div style="font-size:12px;color:#333;letter-spacing:1px;">📍 Av. Dr. Enrique Gauna 1381 · La Carlota, Córdoba</div>
-    <div style="font-size:12px;color:#333;letter-spacing:1px;">📞 <a href="tel:+5493584602508" style="color:#444;text-decoration:none;">358 460-2508</a> &nbsp;·&nbsp; ✉️ <a href="/cdn-cgi/l/email-protection#325e42415e5b565740575c41575547405b56535672555f535b5e1c515d5f" style="color:#444;text-decoration:none;"><span class="__cf_email__" data-cfemail="6905191a05000d0c1b0c071a0c0e1c1b000d080d290e04080005470a0604">[email&#160;protected]</span></a></div>
+    <div style="font-size:12px;color:#333;letter-spacing:1px;">📞 <a href="tel:+5493584602508" style="color:#444;text-decoration:none;">358 460-2508</a> &nbsp;·&nbsp; 📷 <a href="https://instagram.com/lpsmatafuego" target="_blank" style="color:#444;text-decoration:none;">@lpsmatafuego</a></div>
   </div>
-  <div class="footer-copy">© 2007–2025 LPS Líder en Seguridad</div>
+  <div class="footer-copy">© 2007–2026 LPS Líder en Seguridad</div>
 </footer>
 
-<a href="https://wa.me/5493584602508" class="wa-float" target="_blank">💬</a>
+<!-- WhatsApp flotante -->
+<a href="https://wa.me/5493584602508?text=Hola%20LPS%2C%20quiero%20información" class="wa-float" target="_blank">
+  <span style="font-size:22px;">💬</span>
+  <span>Escribinos</span>
+</a>
 
-<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+<script>
   const cursor = document.getElementById('cursor');
   const ring = document.getElementById('ring');
   document.addEventListener('mousemove', e => {
@@ -469,4 +542,16 @@ function enviarWA() {
 
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
-      if
+      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.servicio-card, .plan-card, .porque-item').forEach(el => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(20px)';
+    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(el);
+  });
+</script>
+</body>
+</html>
