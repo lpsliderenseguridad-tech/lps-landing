@@ -1,557 +1,436 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>LPS — Líder en Seguridad</title>
-<meta name="description" content="LPS Líder en Seguridad — 19 años protegiendo hogares, comercios y campo en La Carlota, Córdoba. Matafuegos, cámaras, alarmas, domótica, control de plagas y capacitaciones."/>
-<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Barlow:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#1A237E">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="LPS Precios">
+<link rel="manifest" href="manifest.json">
+<title>LPS — Lista de Precios</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  :root {
-    --amarillo: #FFD000;
-    --amarillo-dark: #F5A800;
-    --negro: #080808;
-    --gris-oscuro: #0f0f0f;
-    --gris: #161616;
-    --gris-borde: #242424;
-    --gris-texto: #666;
-    --blanco: #f5f5f5;
-  }
-  html { scroll-behavior: smooth; }
-  body { background: var(--negro); color: var(--blanco); font-family: 'Barlow', sans-serif; overflow-x: hidden; cursor: none; }
-
-  .cursor { width: 10px; height: 10px; background: var(--amarillo); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform 0.1s; }
-  .cursor-ring { width: 36px; height: 36px; border: 1.5px solid var(--amarillo); border-radius: 50%; position: fixed; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); opacity: 0.45; transition: all 0.12s ease; }
-
-  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 22px 60px; background: rgba(8,8,8,0.93); backdrop-filter: blur(12px); border-bottom: 1px solid rgba(255,208,0,0.07); }
-  .logo-nav { font-family: 'Barlow Condensed', sans-serif; font-weight: 900; font-size: 30px; letter-spacing: -1px; line-height: 1; }
-  .l, .s { color: var(--amarillo); }
-  .logo-nav .sub { font-size: 9px; font-weight: 600; letter-spacing: 4px; color: #444; display: block; margin-top: 2px; }
-  .nav-links { display: flex; gap: 36px; align-items: center; }
-  .nav-links a { color: #aaa; text-decoration: none; font-size: 12px; font-weight: 500; letter-spacing: 2px; text-transform: uppercase; transition: color 0.2s; }
-  .nav-links a:hover { color: var(--amarillo); }
-  .btn-nav { background: var(--amarillo) !important; color: var(--negro) !important; padding: 10px 24px; border-radius: 6px; font-weight: 700 !important; }
-
-  /* HERO */
-  .hero { min-height: 100vh; display: flex; align-items: center; padding: 120px 60px 80px; position: relative; overflow: hidden; }
-  .hero-grid { position: absolute; inset: 0; background-image: linear-gradient(rgba(255,208,0,0.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,208,0,0.025) 1px, transparent 1px); background-size: 64px 64px; pointer-events: none; }
-  .hero::after { content: ''; position: absolute; top: 0; right: 0; width: 50%; height: 100%; background: radial-gradient(ellipse at 70% 40%, rgba(255,208,0,0.055) 0%, transparent 65%); pointer-events: none; }
-  .hero-content { position: relative; z-index: 2; max-width: 720px; }
-  .hero-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(255,208,0,0.07); border: 1px solid rgba(255,208,0,0.18); border-radius: 100px; padding: 7px 18px; font-size: 11px; font-weight: 600; letter-spacing: 3px; color: var(--amarillo); margin-bottom: 32px; animation: fadeUp 0.6s ease both; }
-  .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--amarillo); animation: pulse 2s infinite; }
-  @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.35;transform:scale(.75)} }
-  .hero-lps { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(90px,14vw,168px); font-weight: 900; line-height: .88; letter-spacing: -5px; margin-bottom: 6px; animation: fadeUp .7s ease .1s both; }
-  .hero-lps .l,.hero-lps .s { color: var(--amarillo); text-shadow: 0 0 70px rgba(255,208,0,.28); }
-  .hero-lps .p { color: #fff; }
-  .hero-titulo { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(18px,3.5vw,36px); font-weight: 700; letter-spacing: 7px; color: #555; text-transform: uppercase; margin-bottom: 32px; animation: fadeUp .7s ease .2s both; }
-  .hero-desc { font-size: 17px; line-height: 1.75; color: #aaa; max-width: 500px; margin-bottom: 48px; font-weight: 400; animation: fadeUp .7s ease .3s both; }
-  .hero-desc strong { color: var(--blanco); font-weight: 600; }
-  .hero-ctas { display: flex; gap: 16px; flex-wrap: wrap; animation: fadeUp .7s ease .4s both; }
-  .btn-primary { background: var(--amarillo); color: var(--negro); padding: 16px 38px; border-radius: 8px; font-size: 13px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all .2s; display: inline-block; cursor: none; }
-  .btn-primary:hover { background: var(--amarillo-dark); transform: translateY(-2px); box-shadow: 0 12px 32px rgba(255,208,0,.2); }
-  .btn-secondary { background: transparent; color: var(--blanco); padding: 16px 38px; border-radius: 8px; font-size: 13px; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; border: 1.5px solid #242424; transition: all .2s; display: inline-block; cursor: none; }
-  .btn-secondary:hover { border-color: var(--amarillo); color: var(--amarillo); transform: translateY(-2px); }
-  .hero-stats { position: absolute; right: 60px; bottom: 80px; display: flex; gap: 48px; z-index: 2; animation: fadeUp .8s ease .5s both; }
-  .stat-num { font-family: 'Barlow Condensed', sans-serif; font-size: 50px; font-weight: 900; color: var(--amarillo); line-height: 1; letter-spacing: -2px; }
-  .stat-label { font-size: 10px; color: #777; letter-spacing: 3px; margin-top: 4px; }
-  @keyframes fadeUp { from{opacity:0;transform:translateY(24px)} to{opacity:1;transform:translateY(0)} }
-
-  /* SECCIONES */
-  .section { padding: 100px 60px; }
-  .section-label { font-size: 11px; font-weight: 700; letter-spacing: 5px; color: var(--amarillo); text-transform: uppercase; margin-bottom: 14px; }
-  .section-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(36px,5vw,64px); font-weight: 900; letter-spacing: -1.5px; line-height: 1; margin-bottom: 18px; }
-  .section-title span { color: var(--amarillo); }
-  .section-desc { font-size: 16px; color: #888; line-height: 1.7; max-width: 460px; font-weight: 400; margin-bottom: 60px; }
-
-  /* SERVICIOS */
-  .servicios-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(260px,1fr)); gap: 2px; }
-  .servicio-card { background: #0c0c0c; border: 1px solid #1e1e1e; padding: 40px 34px; position: relative; overflow: hidden; transition: border-color .3s, transform .2s; cursor: none; }
-  .servicio-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; background: var(--amarillo); transform: scaleX(0); transform-origin: left; transition: transform .3s; }
-  .servicio-card:hover::before { transform: scaleX(1); }
-  .servicio-card:hover { border-color: rgba(255,208,0,.18); transform: translateY(-4px); }
-  .card-icon { width: 50px; height: 50px; background: rgba(255,208,0,.07); border: 1px solid rgba(255,208,0,.12); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 22px; margin-bottom: 22px; }
-  .card-title { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 10px; }
-  .card-desc { font-size: 14px; color: #999; line-height: 1.7; font-weight: 400; }
-
-  /* PLANES */
-  .planes-bg { background: #0a0a0a; }
-  .planes-grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(280px,1fr)); gap: 2px; margin-top: 60px; }
-  .plan-card { background: var(--negro); border: 1px solid #1e1e1e; padding: 44px 36px; transition: all .3s; cursor: none; }
-  .plan-card.destacado { background: var(--amarillo); border-color: var(--amarillo); }
-  .plan-card:hover:not(.destacado) { border-color: rgba(255,208,0,.25); transform: translateY(-4px); }
-  .plan-badge-label { font-size: 10px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #444; margin-bottom: 14px; display: block; }
-  .plan-card.destacado .plan-badge-label { color: rgba(0,0,0,.45); }
-  .plan-nombre { font-family: 'Barlow Condensed', sans-serif; font-size: 30px; font-weight: 900; margin-bottom: 6px; }
-  .plan-card.destacado .plan-nombre { color: var(--negro); }
-  .plan-precio { font-family: 'Barlow Condensed', sans-serif; font-size: 58px; font-weight: 900; color: var(--amarillo); line-height: 1; letter-spacing: -2px; margin-bottom: 4px; }
-  .plan-card.destacado .plan-precio { color: var(--negro); }
-  .plan-periodo { font-size: 13px; color: #888; margin-bottom: 30px; }
-  .plan-card.destacado .plan-periodo { color: rgba(0,0,0,.45); }
-  .plan-sep { height: 1px; background: #1e1e1e; margin-bottom: 26px; }
-  .plan-card.destacado .plan-sep { background: rgba(0,0,0,.15); }
-  .plan-features { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-bottom: 34px; }
-  .plan-features li { font-size: 14px; color: #999; display: flex; align-items: center; gap: 10px; font-weight: 400; }
-  .plan-card.destacado .plan-features li { color: rgba(0,0,0,.65); }
-  .plan-features li::before { content: '✓'; width: 20px; height: 20px; background: rgba(255,208,0,.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 11px; color: var(--amarillo); flex-shrink: 0; font-weight: 700; }
-  .plan-card.destacado .plan-features li::before { background: rgba(0,0,0,.1); color: var(--negro); }
-  .btn-plan { display: block; text-align: center; padding: 14px; border-radius: 6px; font-size: 12px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; transition: all .2s; cursor: none; }
-  .btn-outline { border: 1.5px solid #242424; color: var(--blanco); }
-  .btn-outline:hover { border-color: var(--amarillo); color: var(--amarillo); }
-  .btn-dark { background: var(--negro); color: var(--amarillo); border: none; }
-  .btn-dark:hover { background: #111; transform: translateY(-1px); }
-
-  /* POR QUÉ */
-  .porque-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; margin-top: 60px; }
-  .porque-items { display: flex; flex-direction: column; gap: 32px; }
-  .porque-item { display: flex; gap: 20px; align-items: flex-start; }
-  .porque-num { font-family: 'Barlow Condensed', sans-serif; font-size: 46px; font-weight: 900; color: rgba(255,208,0,.12); line-height: 1; letter-spacing: -2px; flex-shrink: 0; width: 52px; }
-  .porque-titulo { font-family: 'Barlow Condensed', sans-serif; font-size: 22px; font-weight: 800; margin-bottom: 6px; }
-  .porque-desc { font-size: 14px; color: #888; line-height: 1.7; font-weight: 400; }
-  .porque-visual { background: #0c0c0c; border: 1px solid #1e1e1e; border-radius: 16px; padding: 48px; position: relative; overflow: hidden; }
-  .porque-visual::before { content: ''; position: absolute; top: -40px; right: -40px; width: 200px; height: 200px; background: radial-gradient(circle, rgba(255,208,0,.07) 0%, transparent 70%); }
-  .visual-lps { font-family: 'Barlow Condensed', sans-serif; font-size: 96px; font-weight: 900; letter-spacing: -4px; line-height: 1; margin-bottom: 16px; }
-  .visual-lps .p { color: rgba(255,255,255,.12); }
-  .visual-tags { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 28px; }
-  .tag-solid { background: var(--amarillo); color: var(--negro); padding: 6px 14px; border-radius: 100px; font-size: 11px; font-weight: 700; letter-spacing: 2px; }
-  .tag-outline { border: 1px solid #333; color: #888; padding: 6px 14px; border-radius: 100px; font-size: 11px; letter-spacing: 2px; }
-
-  /* CTA */
-  .cta-section { background: var(--amarillo); padding: 100px 60px; text-align: center; position: relative; overflow: hidden; }
-  .cta-section::before { content: 'LPS'; position: absolute; font-family: 'Barlow Condensed', sans-serif; font-size: 380px; font-weight: 900; color: rgba(0,0,0,.04); top: 50%; left: 50%; transform: translate(-50%,-50%); letter-spacing: -20px; pointer-events: none; white-space: nowrap; }
-  .cta-title { font-family: 'Barlow Condensed', sans-serif; font-size: clamp(38px,6vw,72px); font-weight: 900; letter-spacing: -2px; color: var(--negro); margin-bottom: 18px; position: relative; }
-  .cta-desc { font-size: 17px; color: rgba(0,0,0,.55); margin-bottom: 44px; font-weight: 400; position: relative; }
-  .btn-cta-dark { background: var(--negro); color: var(--amarillo); padding: 18px 48px; border-radius: 8px; font-size: 14px; font-weight: 700; letter-spacing: 2px; text-transform: uppercase; text-decoration: none; display: inline-block; transition: all .2s; position: relative; cursor: none; }
-  .btn-cta-dark:hover { background: #111; transform: translateY(-2px); box-shadow: 0 16px 40px rgba(0,0,0,.3); }
-
-  /* FOOTER */
-  footer { background: var(--negro); border-top: 1px solid #161616; padding: 44px 60px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 20px; }
-  .footer-logo { font-family: 'Barlow Condensed', sans-serif; font-size: 26px; font-weight: 900; letter-spacing: -1px; }
-  .footer-copy { font-size: 12px; color: #666; letter-spacing: 1px; }
-
-  /* WA FLOAT */
-  .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25D366; border-radius: 50px; display: flex; align-items: center; gap: 10px; text-decoration: none; padding: 14px 22px; box-shadow: 0 8px 24px rgba(37,211,102,.35); z-index: 200; transition: all .2s; cursor: none; animation: fadeUp 1s ease 1s both; }
-  .wa-float:hover { transform: scale(1.05) translateY(-2px); box-shadow: 0 12px 32px rgba(37,211,102,.45); }
-  .wa-float span { font-size: 14px; font-weight: 700; color: #fff; letter-spacing: 1px; }
-
-  @media(max-width:768px){
-    nav{padding:18px 20px;}
-    .nav-links{display:none;}
-    .hero{padding:100px 20px 60px;}
-    .hero-stats{position:relative;right:auto;bottom:auto;margin-top:48px;justify-content:flex-start;}
-    .section{padding:60px 20px;}
-    .porque-grid{grid-template-columns:1fr;gap:40px;}
-    footer{padding:32px 20px;flex-direction:column;text-align:center;}
-    .cta-section{padding:60px 20px;}
-    .wa-float span{display:none;}
-  }
+:root {
+  --azul:#1A237E;--azul3:#3949AB;--amarillo:#FFD000;--rojo:#C62828;
+  --bg:#F4F6FB;--card:#FFFFFF;--borde:#E0E4EF;
+  --texto:#1A1F36;--texto2:#5A6175;--texto3:#9AA0B4;
+  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--radio:12px;
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:var(--sans);background:var(--bg);color:var(--texto);min-height:100vh;-webkit-font-smoothing:antialiased;}
+.header{background:linear-gradient(135deg,var(--azul) 0%,var(--azul3) 100%);padding:18px 20px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(26,35,126,.25);}
+.header-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
+.logo{width:42px;height:42px;border-radius:50%;background:var(--amarillo);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:var(--azul);flex-shrink:0;}
+.header-txt{flex:1;}
+.header-txt h1{font-size:17px;font-weight:600;color:#fff;line-height:1.2;}
+.header-txt p{font-size:12px;color:rgba(255,255,255,.65);margin-top:1px;}
+.dolar-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,.8);}
+.dolar-pill strong{color:var(--amarillo);font-size:13px;}
+.search-wrap{position:relative;}
+.search-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--texto3);pointer-events:none;}
+.search-input{width:100%;padding:13px 44px;font-size:16px;font-family:var(--sans);background:rgba(255,255,255,.95);border:none;border-radius:var(--radio);color:var(--texto);outline:none;box-shadow:0 2px 8px rgba(0,0,0,.15);}
+.search-input::placeholder{color:var(--texto3);}
+.search-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--texto3);font-size:16px;padding:4px;display:none;}
+.filtros-section{background:var(--card);padding:12px 16px 10px;border-bottom:1px solid var(--borde);position:sticky;top:118px;z-index:90;}
+.filtros-scroll{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:10px;}
+.filtros-scroll::-webkit-scrollbar{display:none;}
+.chip{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:500;border:1.5px solid var(--borde);background:var(--bg);color:var(--texto2);cursor:pointer;user-select:none;transition:all .15s;}
+.chip.on{background:var(--azul);color:#fff;border-color:var(--azul);box-shadow:0 2px 8px rgba(26,35,126,.3);}
+.sort-row{display:flex;gap:6px;align-items:center;}
+.sort-lbl{font-size:11px;color:var(--texto3);flex-shrink:0;}
+.sort-btn{padding:4px 12px;border-radius:20px;font-size:11px;font-family:var(--sans);border:1px solid var(--borde);background:transparent;color:var(--texto2);cursor:pointer;}
+.sort-btn.on{background:var(--azul);color:#fff;border-color:var(--azul);}
+.stats-bar{padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--borde);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--texto3);}
+.col-header{display:flex;align-items:center;padding:7px 16px;background:#F0F3FA;border-bottom:1px solid var(--borde);}
+.col-h-desc{flex:1;font-size:10px;font-weight:600;color:var(--texto3);text-transform:uppercase;letter-spacing:.6px;}
+.col-h-precios{display:flex;flex-shrink:0;}
+.col-h-p{font-size:10px;font-weight:600;color:var(--texto3);text-transform:uppercase;letter-spacing:.5px;text-align:right;padding:0 6px;}
+.w-siva{width:70px;}.w-ef{width:90px;}.w-tc{width:88px;}
+.lista{background:var(--card);}
+.item{display:flex;align-items:center;padding:12px 16px;gap:11px;border-bottom:1px solid var(--borde);cursor:default;}
+.item:active{background:#F4F6FB;}
+.item-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+.item-info{flex:1;min-width:0;}
+.item-nom{font-size:14px;font-weight:500;color:var(--texto);line-height:1.35;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
+.item-nom mark,.badge-cod mark,.badge-prov mark{background:#FFF176;color:var(--texto);border-radius:2px;padding:0 1px;}
+.item-badges{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
+.badge{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--bg);color:var(--texto2);border:1px solid var(--borde);}
+.badge-cod{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;background:#E3F2FD;color:#1565C0;border:1px solid #BBDEFB;font-weight:600;}
+.badge-prov{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;background:#EDE7F6;color:#4527A0;border:1px solid #D1C4E9;}
+.item-precios{display:flex;align-items:center;flex-shrink:0;}
+.p-col{text-align:right;padding:0 6px;}
+.p-div{width:1px;height:28px;background:var(--borde);}
+.p-siva-val{font-family:var(--mono);font-size:11px;color:var(--texto2);}
+.p-siva-lbl{font-size:9px;color:var(--texto3);margin-top:1px;}
+.p-ef-val{font-size:17px;font-weight:600;color:var(--texto);line-height:1.1;}
+.p-ef-lbl{font-size:9px;color:var(--texto3);margin-top:2px;}
+.p-tc-val{font-size:14px;font-weight:600;color:var(--rojo);line-height:1.1;}
+.p-tc-lbl{font-size:9px;color:var(--texto3);margin-top:2px;}
+.estado{text-align:center;padding:52px 24px;background:var(--card);}
+.estado-ico{font-size:48px;margin-bottom:14px;opacity:.3;}
+.estado h3{font-size:17px;font-weight:500;color:var(--texto2);margin-bottom:6px;}
+.estado p{font-size:13px;color:var(--texto3);line-height:1.5;}
+.ver-mas{text-align:center;padding:16px;background:var(--card);border-top:1px solid var(--borde);}
+.ver-mas button{padding:11px 28px;background:var(--bg);color:var(--texto2);border:1.5px solid var(--borde);border-radius:var(--radio);font-size:14px;font-family:var(--sans);cursor:pointer;font-weight:500;}
+.cargando{text-align:center;padding:52px 24px;background:var(--card);}
+.spinner{width:36px;height:36px;border:3px solid var(--borde);border-top-color:var(--azul);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.cargando p{font-size:14px;color:var(--texto3);}
+.footer{padding:20px 16px;text-align:center;font-size:11px;color:var(--texto3);background:var(--bg);}
+@media(min-width:640px){
+  .header{padding:18px 28px 16px;}
+  .filtros-section{padding:12px 28px 10px;}
+  .stats-bar,.col-header{padding:8px 28px;}
+  .item{padding:14px 28px;}
+  .lista-wrap{max-width:860px;margin:0 auto;}
+}
 </style>
 </head>
 <body>
 
-<div class="cursor" id="cursor"></div>
-<div class="cursor-ring" id="ring"></div>
+<div class="header">
+  <div class="header-top">
+    <div class="logo">LPS</div>
+    <div class="header-txt">
+      <h1>Lista de Precios LPS</h1>
+      <p>Buscá por descripción, código LPS o proveedor</p>
+    </div>
+    <div class="dolar-pill" title="Dólar BNA oficial - se actualiza automáticamente">💵 <strong id="dolar-val">...</strong></div>
+    <button onclick="recargar()" title="Actualizar" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;flex-shrink:0;" id="btn-refresh">🔄</button>
+  </div>
+  <div class="search-wrap">
+    <span class="search-ico">🔍</span>
+    <input type="search" id="q" class="search-input"
+      placeholder="Extintor, 04115, DEBANDI, cerradura..."
+      oninput="onInput()" autocomplete="off" autocorrect="off" autocapitalize="none"/>
+    <button class="search-clear" id="btn-clear" onclick="limpiar()">✕</button>
+  </div>
+</div>
 
-<nav>
-  <div class="logo-nav">
-    <span class="l">L</span><span>P</span><span class="s">S</span>
-    <span class="sub">LÍDER EN SEGURIDAD</span>
+<div class="filtros-section">
+  <div class="filtros-scroll" id="filtros">
+    <span class="chip on" onclick="setProv('Todos')">Todos</span>
   </div>
-  <div class="nav-links">
-    <a href="#servicios">Servicios</a>
-    <a href="#planes">Planes</a>
-    <a href="#nosotros">Nosotros</a>
-    <a href="#contacto" class="btn-nav">Consultar</a>
+  <div class="sort-row">
+    <span class="sort-lbl">Ordenar:</span>
+    <button class="sort-btn on" onclick="setSort('az',this)">A-Z</button>
+    <button class="sort-btn" onclick="setSort('precio_asc',this)">Precio ↑</button>
+    <button class="sort-btn" onclick="setSort('precio_desc',this)">Precio ↓</button>
+    <button class="sort-btn" onclick="setSort('cod',this)">Código</button>
   </div>
-</nav>
+</div>
 
-<!-- HERO -->
-<section class="hero">
-  <div class="hero-grid"></div>
-  <div class="hero-content">
-    <div class="hero-badge"><span class="dot"></span>La Carlota, Córdoba · Argentina</div>
-    <div class="hero-lps">
-      <span class="l">L</span><span class="p">P</span><span class="s">S</span>
-    </div>
-    <div class="hero-titulo">Líder en Seguridad</div>
-    <p class="hero-desc">Protegemos tu <strong>hogar, negocio y campo</strong> con tecnología inteligente. Cámaras, alarmas, porteros y domótica — todo conectado desde tu celular.</p>
-    <div class="hero-ctas">
-      <a href="#contacto" class="btn-primary">Pedir presupuesto</a>
-      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+<div class="lista-wrap">
+  <div class="stats-bar">
+    <span id="stats-txt">Cargando...</span>
+    <span id="stats-extra"></span>
+  </div>
+  <div class="col-header">
+    <div class="col-h-desc">Producto</div>
+    <div class="col-h-precios">
+      <div class="col-h-p w-siva">S/IVA</div>
+      <div class="col-h-p w-ef">Efectivo</div>
+      <div class="col-h-p w-tc" style="color:var(--rojo)">Tarjeta</div>
     </div>
   </div>
-  <div class="hero-stats">
-    <div class="stat"><div class="stat-num">+500</div><div class="stat-label">CLIENTES</div></div>
-    <div class="stat"><div class="stat-num">19</div><div class="stat-label">AÑOS</div></div>
-    <div class="stat"><div class="stat-num">24/7</div><div class="stat-label">MONITOREO</div></div>
-  </div>
-</section>
-
-<!-- SERVICIOS -->
-<section class="section" id="servicios">
-  <div class="section-label">Lo que hacemos</div>
-  <h2 class="section-title">Seguridad <span>completa</span><br>para cada necesidad</h2>
-  <p class="section-desc">Desde la puerta de tu casa hasta el fondo de tu campo. Un solo proveedor, todo resuelto.</p>
-  <div class="servicios-grid">
-    <div class="servicio-card">
-      <div class="card-icon">📷</div>
-      <div class="card-title">Cámaras & CCTV</div>
-      <p class="card-desc">Instalación de cámaras IP HD con visión nocturna, detección de movimiento por IA y acceso remoto desde cualquier dispositivo.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="card-icon">🚨</div>
-      <div class="card-title">Sistemas de Alarma</div>
-      <p class="card-desc">Alarmas inalámbricas con sensores de movimiento y apertura. Alertas instantáneas a tu WhatsApp ante cualquier intrusión.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="card-icon">🔔</div>
-      <div class="card-title">Videoportero</div>
-      <p class="card-desc">Contestá la puerta desde cualquier lugar. Cámara 2K, audio bidireccional y apertura remota de cerradura desde el celular.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="card-icon">🏠</div>
-      <div class="card-title">Domótica</div>
-      <p class="card-desc">Automatizá luces, portones y climatización. Escenas inteligentes que se activan solas cuando llegás a tu hogar.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="card-icon">🌾</div>
-      <div class="card-title">Seguridad Rural</div>
-      <p class="card-desc">Cámaras solares 4G para zonas sin corriente, GPS para maquinaria y IA que distingue personas de animales.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="card-icon">🧯</div>
-      <div class="card-title">Matafuegos</div>
-      <p class="card-desc">Venta, recarga y mantenimiento de matafuegos certificados. Recordatorios automáticos de vencimiento para tu tranquilidad.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="card-icon">🐛</div>
-      <div class="card-title">Control de Plagas</div>
-      <p class="card-desc">Fumigación y desinfección profesional con productos certificados. Cucarachas, roedores, insectos y más — para hogares, comercios y depósitos.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="card-icon">🎓</div>
-      <div class="card-title">Capacitaciones</div>
-      <p class="card-desc">Capacitamos a tu equipo en uso de extintores, evacuación de emergencia y prevención de incendios. Certificado incluido.</p>
-    </div>
-    <div class="servicio-card">
-      <div class="card-icon">⛑️</div>
-      <div class="card-title">Seguridad Industrial</div>
-      <p class="card-desc">Venta de EPP: cascos, guantes, anteojos de seguridad, protectores auditivos, cinta reflectiva y calzado antideslizante.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PLANES -->
-<section class="section planes-bg" id="planes">
-  <div class="section-label">Precios</div>
-  <h2 class="section-title">Elegí tu <span>plan</span></h2>
-  <p class="section-desc">Todos incluyen instalación, app de monitoreo y soporte por WhatsApp.</p>
-  <div class="planes-grid">
-    <div class="plan-card">
-      <span class="plan-badge-label">Hogar</span>
-      <div class="plan-nombre">Básico</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--amarillo);margin-bottom:4px;">Consultá el precio</div>
-      <div class="plan-periodo">Instalación incluida · sin permanencia</div>
-      <div class="plan-sep"></div>
-      <ul class="plan-features">
-        <li>1 videoportero con cámara</li>
-        <li>App de monitoreo incluida</li>
-        <li>Alertas por WhatsApp</li>
-        <li>Soporte técnico remoto</li>
-      </ul>
-      <a href="#contacto" class="btn-plan btn-outline">Consultar</a>
-    </div>
-    <div class="plan-card destacado">
-      <span class="plan-badge-label">⭐ MÁS ELEGIDO</span>
-      <div class="plan-nombre">Hogar Total</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--negro);margin-bottom:4px;">Consultá el precio</div>
-      <div class="plan-periodo">Instalación incluida · sin permanencia</div>
-      <div class="plan-sep"></div>
-      <ul class="plan-features">
-        <li>Videoportero + 2 cámaras</li>
-        <li>Alarma con sensores</li>
-        <li>Detección de personas IA</li>
-        <li>App + alertas WhatsApp</li>
-        <li>Soporte prioritario 24/7</li>
-      </ul>
-      <a href="#contacto" class="btn-plan btn-dark">Quiero este plan</a>
-    </div>
-    <div class="plan-card">
-      <span class="plan-badge-label">Rural</span>
-      <div class="plan-nombre">Campo</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:28px;font-weight:800;color:var(--amarillo);margin-bottom:4px;">Consultá el precio</div>
-      <div class="plan-periodo">Instalación incluida · sin permanencia</div>
-      <div class="plan-sep"></div>
-      <ul class="plan-features">
-        <li>4 cámaras solares 4G</li>
-        <li>GPS para maquinaria</li>
-        <li>IA detecta personas/vehículos</li>
-        <li>Dashboard web unificado</li>
-        <li>Alertas WhatsApp al instante</li>
-      </ul>
-      <a href="#contacto" class="btn-plan btn-outline">Consultar</a>
-    </div>
-  </div>
-</section>
-
-<!-- POR QUÉ -->
-<section class="section" id="nosotros">
-  <div class="section-label">Por qué elegirnos</div>
-  <h2 class="section-title">19 años<br><span>cuidando la región</span></h2>
-  <div class="porque-grid">
-    <div class="porque-items">
-      <div class="porque-item"><div class="porque-num">01</div><div><div class="porque-titulo">Empresa local de La Carlota</div><p class="porque-desc">Conocemos la región, llegamos rápido y te atendemos en persona. No somos un call center — somos tus vecinos.</p></div></div>
-      <div class="porque-item"><div class="porque-num">02</div><div><div class="porque-titulo">Todo en una sola app</div><p class="porque-desc">Cámaras, alarma, portero y campo en una plataforma. Sin contraseñas múltiples ni apps distintas.</p></div></div>
-      <div class="porque-item"><div class="porque-num">03</div><div><div class="porque-titulo">Alertas por WhatsApp</div><p class="porque-desc">Te avisamos al instante cuando algo pasa. Usamos el WhatsApp que ya tenés — sin apps raras.</p></div></div>
-      <div class="porque-item"><div class="porque-num">04</div><div><div class="porque-titulo">Sin permanencia obligatoria</div><p class="porque-desc">Probá el servicio sin compromisos. Si no quedás conforme, no te cobramos ni un mes extra.</p></div></div>
-    </div>
-    <div class="porque-visual">
-      <div class="visual-lps"><span class="l">L</span><span class="p">P</span><span class="s">S</span></div>
-      <p style="color:#888;font-size:14px;line-height:1.7;font-weight:400;">Desde matafuegos hasta inteligencia artificial — en LPS evolucionamos con la tecnología para darte siempre lo mejor.</p>
-      <div class="visual-tags">
-        <span class="tag-solid">ALARMAS</span>
-        <span class="tag-outline">CÁMARAS</span>
-        <span class="tag-solid">DOMÓTICA</span>
-        <span class="tag-outline">MATAFUEGOS</span>
-        <span class="tag-outline">GPS RURAL</span>
-        <span class="tag-solid">PLAGAS</span>
-        <span class="tag-outline">CAPACITACIONES</span>
-        <span class="tag-solid">EPP</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- HISTORIA -->
-<section class="section" style="background:#0a0a0a;overflow:hidden;">
-  <div class="section-label">Nuestra historia</div>
-  <h2 class="section-title">Desde <span>2007</span> protegiendo<br>La Carlota</h2>
-  <p class="section-desc">19 años de trabajo, confianza y crecimiento junto a nuestra comunidad.</p>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:2px;">
-    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2007</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">FUNDACIÓN</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Los inicios</div>
-      <p style="font-size:13px;color:#888;line-height:1.6;">Arrancamos con matafuegos y prevención contra incendios en La Carlota.</p>
-    </div>
-    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2012</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">EXPANSIÓN</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Alarmas y CCTV</div>
-      <p style="font-size:13px;color:#888;line-height:1.6;">Incorporamos sistemas de alarmas y cámaras para hogares y comercios.</p>
-    </div>
-    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:36px 28px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(255,208,0,0.04);line-height:1;">2018</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:var(--amarillo);letter-spacing:3px;margin-bottom:10px;">TECNOLOGÍA</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;">Domótica y Smart</div>
-      <p style="font-size:13px;color:#888;line-height:1.6;">Sumamos automatización del hogar, porteros inteligentes y control remoto.</p>
-    </div>
-    <div style="background:var(--amarillo);border:1px solid var(--amarillo);padding:36px 28px;position:relative;overflow:hidden;">
-      <div style="position:absolute;top:-10px;right:16px;font-family:'Barlow Condensed',sans-serif;font-size:80px;font-weight:900;color:rgba(0,0,0,0.06);line-height:1;">2026</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:12px;font-weight:700;color:rgba(0,0,0,0.45);letter-spacing:3px;margin-bottom:10px;">HOY</div>
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:22px;font-weight:800;margin-bottom:8px;color:#111;">19 años y creciendo</div>
-      <p style="font-size:13px;color:rgba(0,0,0,0.6);line-height:1.6;">IA, seguridad rural, control de plagas, EPP y plataforma digital unificada.</p>
-    </div>
-  </div>
-</section>
-
-<!-- GALERIA -->
-<section class="section">
-  <div class="section-label">Nuestros trabajos</div>
-  <h2 class="section-title">Instalaciones <span>reales</span></h2>
-  <p class="section-desc">Cada instalación es única. Algunos trabajos realizados en la región.</p>
-  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:3px;">
-    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">📷</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CÁMARAS EXTERIOR</div>
-    </div>
-    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">🚨</div><div style="font-size:11px;color:#555;letter-spacing:2px;">ALARMA COMERCIO</div>
-    </div>
-    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">🌾</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CÁMARA RURAL</div>
-    </div>
-    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">🐛</div><div style="font-size:11px;color:#555;letter-spacing:2px;">CONTROL DE PLAGAS</div>
-    </div>
-    <div style="background:#111;border:1px solid #1e1e1e;aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;transition:border-color .3s;" onmouseover="this.style.borderColor='rgba(255,208,0,0.3)'" onmouseout="this.style.borderColor='#1e1e1e'">
-      <div style="font-size:36px;">🧯</div><div style="font-size:11px;color:#555;letter-spacing:2px;">MATAFUEGOS</div>
-    </div>
-    <div style="background:rgba(255,208,0,0.05);border:1px dashed rgba(255,208,0,0.2);aspect-ratio:4/3;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;">
-      <div style="font-size:13px;color:var(--amarillo);letter-spacing:2px;font-weight:700;">+ TUS FOTOS</div>
-      <div style="font-size:11px;color:#444;text-align:center;padding:0 20px;">Envianos fotos de tus trabajos</div>
-    </div>
-  </div>
-</section>
-
-<!-- TESTIMONIOS -->
-<section class="section" style="background:#0a0a0a;">
-  <div class="section-label">Lo que dicen nuestros clientes</div>
-  <h2 class="section-title">19 años de <span>confianza</span></h2>
-  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:2px;margin-top:60px;">
-    <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
-      <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
-      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Instalaron las cámaras en el negocio y puedo ver todo desde el celular. Excelente servicio y respuesta rápida.</p>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">R</div>
-        <div><div style="font-size:14px;font-weight:600;">Roberto M.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Comercio — La Carlota</div></div>
-      </div>
-    </div>
-    <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
-      <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
-      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Los matafuegos siempre al día. Te avisan antes de que venzan. Muy profesionales y puntuales.</p>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">M</div>
-        <div><div style="font-size:14px;font-weight:600;">María L.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Hogar — Ucacha</div></div>
-      </div>
-    </div>
-    <div style="background:#0f0f0f;border:1px solid #1e1e1e;border-top:3px solid var(--amarillo);padding:36px;">
-      <div style="font-size:32px;color:var(--amarillo);margin-bottom:16px;font-family:'Barlow Condensed',sans-serif;font-weight:900;">"</div>
-      <p style="font-size:15px;color:#bbb;line-height:1.7;margin-bottom:24px;font-weight:300;">Pusieron cámaras solares en el campo y me mandan alerta al WhatsApp si entra alguien. Una tranquilidad enorme.</p>
-      <div style="display:flex;align-items:center;gap:12px;">
-        <div style="width:40px;height:40px;background:var(--amarillo);border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-family:'Barlow Condensed',sans-serif;font-size:18px;color:#111;">C</div>
-        <div><div style="font-size:14px;font-weight:600;">Carlos P.</div><div style="font-size:11px;color:#555;letter-spacing:1px;">Campo — Zona rural</div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- FORMULARIO DE CONTACTO -->
-<section class="section" id="contacto">
-  <div class="section-label">Encontranos</div>
-  <h2 class="section-title">Pedí tu <span>presupuesto</span></h2>
-  <div style="display:grid;grid-template-columns:1fr 1fr;gap:3px;margin-top:60px;">
-    <div style="background:#0f0f0f;border:1px solid #1e1e1e;overflow:hidden;min-height:420px;position:relative;">
-      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.5!2d-63.3050476!3d-33.4234796!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95cc3956b6f0c3e7%3A0x7fc459e8a190f9b6!2sAv.+Doctor+Enrique+Gauna+1381%2C+X2670+La+Carlota%2C+C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1700000000000" width="100%" height="100%" style="border:0;filter:invert(90%) hue-rotate(180deg);position:absolute;inset:0;" allowfullscreen="" loading="lazy"></iframe>
-      <div style="position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.85));padding:24px 20px;pointer-events:none;">
-        <div style="font-size:13px;color:#aaa;">Av. Dr. Enrique Gauna 1381 — La Carlota, Córdoba</div>
-        <div style="font-size:12px;color:#666;margin-top:4px;">Lunes a Viernes 8 a 12 y 16 a 19:30 · Sábados 7 a 12</div>
-      </div>
-    </div>
-    <div style="background:#0f0f0f;border:1px solid #1e1e1e;padding:48px 40px;">
-      <div style="font-family:'Barlow Condensed',sans-serif;font-size:26px;font-weight:800;margin-bottom:8px;">Escribinos</div>
-      <p style="font-size:13px;color:#666;margin-bottom:32px;">Te respondemos en menos de 24hs. Sin compromiso.</p>
-      <div style="display:flex;flex-direction:column;gap:16px;">
-        <div>
-          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">NOMBRE</label>
-          <input id="f-nombre" type="text" placeholder="Tu nombre" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"/>
-        </div>
-        <div>
-          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">TELÉFONO / WHATSAPP</label>
-          <input id="f-tel" type="tel" placeholder="358 XXX-XXXX" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"/>
-        </div>
-        <div>
-          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">ME INTERESA</label>
-          <select id="f-servicio" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#aaa;font-family:'Barlow',sans-serif;font-size:14px;outline:none;cursor:pointer;">
-            <option value="">— Seleccioná un servicio —</option>
-            <option>Cámaras y CCTV</option>
-            <option>Sistema de Alarma</option>
-            <option>Videoportero</option>
-            <option>Domótica</option>
-            <option>Seguridad Rural / Campo</option>
-            <option>Matafuegos — recarga o venta</option>
-            <option>Control de Plagas</option>
-            <option>Capacitaciones contra incendios</option>
-            <option>Seguridad Industrial / EPP</option>
-            <option>Plan Hogar Total</option>
-            <option>Varios servicios</option>
-          </select>
-        </div>
-        <div>
-          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">LOCALIDAD</label>
-          <input id="f-localidad" type="text" placeholder="Tu ciudad o localidad" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"/>
-        </div>
-        <div>
-          <label style="font-size:11px;letter-spacing:3px;color:#555;display:block;margin-bottom:8px;">MENSAJE (opcional)</label>
-          <textarea id="f-msg" placeholder="Contanos qué necesitás..." rows="3" style="width:100%;background:#161616;border:1px solid #242424;border-radius:6px;padding:14px 16px;color:#fff;font-family:'Barlow',sans-serif;font-size:14px;outline:none;resize:none;transition:border-color .2s;" onfocus="this.style.borderColor='rgba(255,208,0,0.4)'" onblur="this.style.borderColor='#242424'"></textarea>
-        </div>
-        <button onclick="enviarWA()" style="background:var(--amarillo);color:#111;border:none;border-radius:6px;padding:16px;font-size:13px;font-weight:700;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:all .2s;width:100%;display:flex;align-items:center;justify-content:center;gap:8px;" onmouseover="this.style.background='#F5A800'" onmouseout="this.style.background='#FFD000'">
-          <span>💬</span> Enviar por WhatsApp
-        </button>
-        <div style="font-size:11px;color:#444;text-align:center;letter-spacing:1px;">Te respondemos en menos de 24 horas</div>
-      </div>
-    </div>
-  </div>
-</section>
+  <div id="lista"><div class="cargando"><div class="spinner"></div><p>Cargando lista de precios...</p></div></div>
+  <div class="footer">LPS — Lider en Seguridad · La Carlota, Córdoba · lpsliderenseguridad@gmail.com</div>
+</div>
 
 <script>
-function enviarWA() {
-  const nombre = document.getElementById('f-nombre').value.trim() || 'sin nombre';
-  const tel = document.getElementById('f-tel').value.trim() || 'sin teléfono';
-  const servicio = document.getElementById('f-servicio').value || 'consulta general';
-  const localidad = document.getElementById('f-localidad').value.trim();
-  const msg = document.getElementById('f-msg').value.trim();
-  let texto = 'Hola LPS! Soy ' + nombre + ', tel: ' + tel;
-  if (localidad) texto += ', de ' + localidad;
-  texto += '. Me interesa: ' + servicio;
-  if (msg) texto += '. ' + msg;
-  window.open('https://wa.me/5493584602508?text=' + encodeURIComponent(texto), '_blank');
+// ── CONFIGURACIÓN ──────────────────────────────────────────────────────
+const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRXITeiYe4R_wUNdwtKC7reDhr7dEX36VYoV3tiHudWwb5GImdEClZPeR59VXZPmd-85KpYX7wWljVh/pub?gid=41474054&single=true&output=csv';
+
+// COLUMNAS (índice base 0, según tu sheet):
+// A=0 CAT | B=1 PROVEEDOR | C=2 CÓD.PROV | D=3 DESCRIPCIÓN
+// E=4 PRECIO COSTO | F=5 BULTO | G=6 %MARGEN | H=7 PRECIO BASE
+// I=8 PRECIO S/IVA | J=9 PRECIO FINAL C/IVA | K=10 COD.LPS
+const COL = {
+  prov:  1,   // B - PROVEEDOR
+  codProv: 2, // C - Código del proveedor (ej: DD-DD14461)
+  desc:  3,   // D - DESCRIPCIÓN
+  siva:  8,   // I - PRECIO S/IVA
+  final: 9,   // J - PRECIO FINAL C/IVA
+  codLPS:10,  // K - CÓDIGO LPS (tu número interno, ej: 04115)
+  cat:   0,   // A - CATEGORÍA
+};
+
+const COLORES = {
+  'DEBANDI':    {bg:'#E3F2FD',emoji:'🔨'},
+  'ECOLED':     {bg:'#E8F5E9',emoji:'💡'},
+  'PINTURERIA': {bg:'#FFF3E0',emoji:'🎨'},
+  'CARBUROX':   {bg:'#FCE4EC',emoji:'🔥'},
+  'TOSI':       {bg:'#EDE7F6',emoji:'🛡'},
+  'CBA PAIS':   {bg:'#E0F7FA',emoji:'📦'},
+  'CEG':        {bg:'#E8F5E9',emoji:'🛒'},
+  'ESLINGA':    {bg:'#FFF8E1',emoji:'⛓'},
+};
+
+const POR_PAG = 25;
+let todos=[], provAct='Todos', sortAct='az', pagina=1, resultados=[], proveedores=['Todos'];
+
+// ── SPLIT CSV con soporte de comillas ──────────────────────────────────
+function splitRow(line){
+  const c=[]; let cur='',inQ=false;
+  for(let i=0;i<line.length;i++){
+    const ch=line[i];
+    if(ch==='"'){inQ=!inQ;}
+    else if(ch===','&&!inQ){c.push(cur.replace(/^"|"$/g,'').trim());cur='';}
+    else cur+=ch;
+  }
+  c.push(cur.replace(/^"|"$/g,'').trim());
+  return c;
 }
-</script>
 
-<!-- CTA FINAL -->
-<section class="cta-section" id="contacto-final">
-  <h2 class="cta-title">¿Listo para proteger<br>lo que más importa?</h2>
-  <p class="cta-desc">Contactanos hoy y te armamos una solución a medida sin costo.</p>
-  <a href="https://wa.me/5493584602508?text=Hola%20LPS%2C%20quiero%20información%20sobre%20seguridad" class="btn-cta-dark" target="_blank">💬 Escribinos por WhatsApp</a>
-  <div style="margin-top:44px;display:flex;gap:48px;justify-content:center;flex-wrap:wrap;position:relative;">
-    <div style="text-align:center;">
-      <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">DIRECCIÓN</div>
-      <div style="font-size:14px;color:rgba(0,0,0,0.6);font-weight:500;line-height:1.6;">Av. Dr. Enrique Gauna 1381<br>La Carlota, Córdoba</div>
-    </div>
-    <div style="width:1px;background:rgba(0,0,0,0.1);"></div>
-    <div style="text-align:center;">
-      <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">TELÉFONO</div>
-      <div style="font-size:14px;font-weight:500;"><a href="tel:+5493584602508" style="color:rgba(0,0,0,0.6);text-decoration:none;">358 460-2508</a></div>
-    </div>
-    <div style="width:1px;background:rgba(0,0,0,0.1);"></div>
-    <div style="text-align:center;">
-      <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">EMAIL</div>
-      <div style="font-size:14px;font-weight:500;"><a href="mailto:lpsliderenseguridad@gmail.com" style="color:rgba(0,0,0,0.6);text-decoration:none;">lpsliderenseguridad@gmail.com</a></div>
-    </div>
-    <div style="width:1px;background:rgba(0,0,0,0.1);"></div>
-    <div style="text-align:center;">
-      <div style="font-size:10px;letter-spacing:4px;color:rgba(0,0,0,0.35);margin-bottom:8px;">HORARIO</div>
-      <div style="font-size:13px;color:rgba(0,0,0,0.6);font-weight:500;line-height:1.6;">Lun-Vie 8-12 y 16-19:30<br>Sáb 7-12</div>
-    </div>
-  </div>
-</section>
+// ── PARSEAR NÚMERO ─────────────────────────────────────────────────────
+function num(v){
+  if(!v) return 0;
+  const s=String(v).replace(/[^\d.,]/g,'');
+  if(!s) return 0;
+  const dc=s.lastIndexOf(','), dp=s.lastIndexOf('.');
+  const clean = dc>dp ? s.replace(/\./g,'').replace(',','.') : s.replace(/,/g,'');
+  return parseFloat(clean)||0;
+}
 
-<footer>
-  <div class="footer-logo"><span class="l">L</span><span>P</span><span class="s">S</span> <span style="font-size:11px;color:#2a2a2a;margin-left:10px;letter-spacing:3px;font-family:'Barlow Condensed',sans-serif;font-weight:600;">LÍDER EN SEGURIDAD</span></div>
-  <div style="display:flex;flex-direction:column;gap:6px;text-align:center;">
-    <div style="font-size:12px;color:#333;letter-spacing:1px;">📍 Av. Dr. Enrique Gauna 1381 · La Carlota, Córdoba</div>
-    <div style="font-size:12px;color:#333;letter-spacing:1px;">📞 <a href="tel:+5493584602508" style="color:#444;text-decoration:none;">358 460-2508</a> &nbsp;·&nbsp; 📷 <a href="https://instagram.com/lpsmatafuego" target="_blank" style="color:#444;text-decoration:none;">@lpsmatafuego</a></div>
-  </div>
-  <div class="footer-copy">© 2007–2026 LPS Líder en Seguridad</div>
-</footer>
+// ── PARSEAR CSV ────────────────────────────────────────────────────────
+function parseCSV(text){
+  const lines = text.trim().split('\n');
 
-<!-- WhatsApp flotante -->
-<a href="https://wa.me/5493584602508?text=Hola%20LPS%2C%20quiero%20información" class="wa-float" target="_blank">
-  <span style="font-size:22px;">💬</span>
-  <span>Escribinos</span>
-</a>
+  // Buscar la fila de encabezados (la que tiene DESCRIPCI + PROVEEDOR)
+  let hi = -1;
+  for(let i=0; i<Math.min(10,lines.length); i++){
+    const joined = splitRow(lines[i]).join(' ').toUpperCase()
+      .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+    if(joined.includes('DESCRIPCI') && joined.includes('PROVEEDOR')){
+      hi=i; break;
+    }
+  }
+  if(hi<0){ console.error('No se encontró fila de encabezados'); return []; }
 
-<script>
-  const cursor = document.getElementById('cursor');
-  const ring = document.getElementById('ring');
-  document.addEventListener('mousemove', e => {
-    cursor.style.left = e.clientX + 'px';
-    cursor.style.top = e.clientY + 'px';
-    setTimeout(() => { ring.style.left = e.clientX + 'px'; ring.style.top = e.clientY + 'px'; }, 65);
-  });
+  // Proveedores válidos (solo texto, sin números)
+  const provsSet = new Set();
+  const productos = [];
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(e => {
-      if (e.isIntersecting) { e.target.style.opacity = '1'; e.target.style.transform = 'translateY(0)'; }
+  for(let i=hi+1; i<lines.length; i++){
+    const row = splitRow(lines[i]);
+    const g = idx => (row[idx]||'').trim();
+
+    const desc    = g(COL.desc);
+    const prov    = g(COL.prov).toUpperCase().trim();
+    const codLPS  = g(COL.codLPS);   // tu código interno (ej: 04115)
+    const codProv = g(COL.codProv);  // código proveedor  (ej: DD-DD14461)
+    const cat     = g(COL.cat);
+
+    if(!desc) continue;
+
+    // Filtrar proveedores inválidos (solo letras, no números/porcentajes)
+    const provValido = prov && /^[A-ZÁÉÍÓÚÑÜ\s]+$/.test(prov) && prov.length > 1 && prov.length < 30;
+
+    let siva  = num(g(COL.siva));
+    let final = num(g(COL.final));
+
+    if(final<=0 && siva>0)  final = Math.round(siva*1.21);
+    if(siva<=0  && final>0) siva  = Math.round(final/1.21);
+    if(final<=0) continue;
+
+    if(provValido) provsSet.add(prov);
+
+    productos.push({
+      codLPS,   // número interno LPS (ej: 04115)
+      codProv,  // código del proveedor (ej: DD-DD14461)
+      desc,
+      prov: provValido ? prov : '',
+      cat,
+      siva:  Math.round(siva),
+      final: Math.round(final)
     });
-  }, { threshold: 0.1 });
+  }
 
-  document.querySelectorAll('.servicio-card, .plan-card, .porque-item').forEach(el => {
-    el.style.opacity = '0';
-    el.style.transform = 'translateY(20px)';
-    el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
-    observer.observe(el);
-  });
+  proveedores = ['Todos', ...Array.from(provsSet).sort()];
+  return productos;
+}
+
+// ── CARGAR ─────────────────────────────────────────────────────────────
+async function cargar(){
+  try{
+    const r = await fetch(CSV_URL+'&t='+Date.now());
+    if(!r.ok) throw new Error('HTTP '+r.status);
+    const text = await r.text();
+    todos = parseCSV(text);
+    if(todos.length===0) throw new Error('Sin datos. Verificá que el Sheet esté publicado como CSV.');
+    document.getElementById('stats-txt').textContent = todos.length.toLocaleString('es-AR')+' productos disponibles';
+    renderFiltros();
+    mostrarInicio();
+  }catch(e){
+    console.error(e);
+    document.getElementById('lista').innerHTML=`
+      <div class="estado">
+        <div class="estado-ico">⚙️</div>
+        <h3>Error al cargar</h3>
+        <p>${e.message}</p>
+      </div>`;
+    document.getElementById('stats-txt').textContent='Error al cargar';
+  }
+}
+
+// ── UI ──────────────────────────────────────────────────────────────────
+function renderFiltros(){
+  document.getElementById('filtros').innerHTML = proveedores.map(p=>{
+    const ico = COLORES[p]?.emoji || '';
+    return `<span class="chip${p===provAct?' on':''}" onclick="setProv('${p.replace(/'/g,"\\'")}')">
+      ${ico} ${p}
+    </span>`;
+  }).join('');
+}
+
+function setProv(p){provAct=p;pagina=1;renderFiltros();buscar();}
+function setSort(s,el){
+  sortAct=s;pagina=1;
+  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('on'));
+  el.classList.add('on');
+  buscar();
+}
+function onInput(){
+  document.getElementById('btn-clear').style.display = document.getElementById('q').value?'block':'none';
+  pagina=1; buscar();
+}
+function limpiar(){
+  document.getElementById('q').value='';
+  document.getElementById('btn-clear').style.display='none';
+  provAct='Todos';pagina=1;renderFiltros();buscar();
+}
+function ars(n){return '$'+Math.round(n).toLocaleString('es-AR');}
+function hl(txt,q){
+  if(!q||!txt) return txt;
+  try{
+    const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
+    return String(txt).replace(re,'<mark>$1</mark>');
+  }catch(e){return txt;}
+}
+function mostrarInicio(){
+  document.getElementById('lista').innerHTML=`
+    <div class="estado">
+      <div class="estado-ico">🔍</div>
+      <h3>Escribí para buscar</h3>
+      <p>Por descripción: <b>extintor, cerradura...</b><br>
+         Por código LPS: <b>04115</b><br>
+         Por código proveedor: <b>DD-DD14461</b></p>
+    </div>`;
+}
+
+// ── BUSCAR ──────────────────────────────────────────────────────────────
+function buscar(){
+  const q=(document.getElementById('q').value||'').trim();
+  const qn=q.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+
+  if(!q && provAct==='Todos'){mostrarInicio();return;}
+
+  let res=[...todos];
+  if(provAct!=='Todos') res=res.filter(p=>p.prov===provAct);
+
+  if(qn){
+    const terms=qn.split(/\s+/).filter(Boolean);
+    res=res.filter(p=>{
+      const hay=[p.desc, p.codLPS, p.codProv, p.prov, p.cat]
+        .join(' ').toLowerCase()
+        .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
+      return terms.every(t=>hay.includes(t));
+    });
+  }
+
+  if(sortAct==='az')           res.sort((a,b)=>a.desc.localeCompare(b.desc,'es'));
+  else if(sortAct==='precio_asc')   res.sort((a,b)=>a.final-b.final);
+  else if(sortAct==='precio_desc')  res.sort((a,b)=>b.final-a.final);
+  else if(sortAct==='cod')     res.sort((a,b)=>a.codLPS.localeCompare(b.codLPS,'es',{numeric:true}));
+
+  resultados=res;
+  const total=res.length;
+
+  document.getElementById('stats-txt').textContent=
+    total===0?'Sin resultados':
+    total===1?'1 producto encontrado':
+    total.toLocaleString('es-AR')+' productos encontrados';
+  document.getElementById('stats-extra').textContent=
+    total>POR_PAG?`Mostrando ${Math.min(pagina*POR_PAG,total)} de ${total}`:'';
+
+  const lista=document.getElementById('lista');
+  if(!total){
+    lista.innerHTML=`
+      <div class="estado">
+        <div class="estado-ico">😕</div>
+        <h3>No encontramos "${q}"</h3>
+        <p>Probá con otra palabra o cambiá el proveedor</p>
+      </div>`;
+    return;
+  }
+
+  const slice=res.slice(0,pagina*POR_PAG);
+  lista.innerHTML=slice.map(p=>{
+    const cfg=COLORES[p.prov]||{bg:'#F5F5F5',emoji:'📦'};
+    const tarjeta=Math.round(p.final*1.20);
+    return `
+      <div class="item">
+        <div class="item-ico" style="background:${cfg.bg}">${cfg.emoji}</div>
+        <div class="item-info">
+          <div class="item-nom">${hl(p.desc,q)}</div>
+          <div class="item-badges">
+            ${p.codLPS  ? `<span class="badge-cod">${hl(p.codLPS,q)}</span>` : ''}
+            ${p.codProv ? `<span class="badge-prov">${hl(p.codProv,q)}</span>` : ''}
+            ${p.prov    ? `<span class="badge">${p.prov}</span>` : ''}
+            ${p.cat     ? `<span class="badge" style="opacity:.6">${p.cat}</span>` : ''}
+          </div>
+        </div>
+        <div class="item-precios">
+          <div class="p-col w-siva">
+            <div class="p-siva-val">${ars(p.siva)}</div>
+            <div class="p-siva-lbl">S/IVA</div>
+          </div>
+          <div class="p-div"></div>
+          <div class="p-col w-ef">
+            <div class="p-ef-val">${ars(p.final)}</div>
+            <div class="p-ef-lbl">💵 Efectivo</div>
+          </div>
+          <div class="p-div"></div>
+          <div class="p-col w-tc">
+            <div class="p-tc-val">${ars(tarjeta)}</div>
+            <div class="p-tc-lbl">💳 Tarjeta</div>
+          </div>
+        </div>
+      </div>`;
+  }).join('')+(total>pagina*POR_PAG?`
+    <div class="ver-mas">
+      <button onclick="verMas()">Ver más (${total-pagina*POR_PAG} restantes) ↓</button>
+    </div>`:'');
+}
+
+function verMas(){pagina++;buscar();}
+
+async function recargar(){
+  const btn=document.getElementById('btn-refresh');
+  btn.style.transform='rotate(360deg)';btn.style.transition='transform .6s';
+  document.getElementById('lista').innerHTML='<div class="cargando"><div class="spinner"></div><p>Actualizando...</p></div>';
+  await cargar();
+  setTimeout(()=>{btn.style.transform='';btn.style.transition='';},700);
+  if(document.getElementById('q').value||provAct!=='Todos') buscar();
+}
+
+// ── DÓLAR BNA AUTOMÁTICO ──────────────────────────────────────
+async function fetchDolar() {
+  try {
+    const r = await fetch('https://api.bluelytics.com.ar/v2/latest');
+    const d = await r.json();
+    const val = d.oficial.value_sell;
+    document.getElementById('dolar-val').textContent = '$' + Math.round(val).toLocaleString('es-AR');
+    return Math.round(val);
+  } catch(e) {
+    document.getElementById('dolar-val').textContent = '$1.420';
+    return 1420;
+  }
+}
+
+cargar();
+fetchDolar();
 </script>
 </body>
 </html>
