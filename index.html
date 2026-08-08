@@ -1,436 +1,492 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<meta name="theme-color" content="#1A237E">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="LPS Precios">
-<link rel="manifest" href="manifest.json">
-<title>LPS — Lista de Precios</title>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>LPS — Líder en Seguridad · La Carlota, Córdoba</title>
+<meta name="description" content="Cámaras, alarmas, domótica, seguridad rural y matafuegos en La Carlota, Córdoba. 19 años protegiendo hogares, comercios y campos."/>
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Oswald:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root {
-  --azul:#1A237E;--azul3:#3949AB;--amarillo:#FFD000;--rojo:#C62828;
-  --bg:#F4F6FB;--card:#FFFFFF;--borde:#E0E4EF;
-  --texto:#1A1F36;--texto2:#5A6175;--texto3:#9AA0B4;
-  --mono:'DM Mono',monospace;--sans:'DM Sans',sans-serif;--radio:12px;
-}
-*{box-sizing:border-box;margin:0;padding:0;}
-body{font-family:var(--sans);background:var(--bg);color:var(--texto);min-height:100vh;-webkit-font-smoothing:antialiased;}
-.header{background:linear-gradient(135deg,var(--azul) 0%,var(--azul3) 100%);padding:18px 20px 16px;position:sticky;top:0;z-index:100;box-shadow:0 2px 16px rgba(26,35,126,.25);}
-.header-top{display:flex;align-items:center;gap:12px;margin-bottom:14px;}
-.logo{width:42px;height:42px;border-radius:50%;background:var(--amarillo);display:flex;align-items:center;justify-content:center;font-weight:600;font-size:15px;color:var(--azul);flex-shrink:0;}
-.header-txt{flex:1;}
-.header-txt h1{font-size:17px;font-weight:600;color:#fff;line-height:1.2;}
-.header-txt p{font-size:12px;color:rgba(255,255,255,.65);margin-top:1px;}
-.dolar-pill{background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.2);border-radius:20px;padding:5px 12px;font-size:12px;color:rgba(255,255,255,.8);}
-.dolar-pill strong{color:var(--amarillo);font-size:13px;}
-.search-wrap{position:relative;}
-.search-ico{position:absolute;left:14px;top:50%;transform:translateY(-50%);font-size:18px;color:var(--texto3);pointer-events:none;}
-.search-input{width:100%;padding:13px 44px;font-size:16px;font-family:var(--sans);background:rgba(255,255,255,.95);border:none;border-radius:var(--radio);color:var(--texto);outline:none;box-shadow:0 2px 8px rgba(0,0,0,.15);}
-.search-input::placeholder{color:var(--texto3);}
-.search-clear{position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;color:var(--texto3);font-size:16px;padding:4px;display:none;}
-.filtros-section{background:var(--card);padding:12px 16px 10px;border-bottom:1px solid var(--borde);position:sticky;top:118px;z-index:90;}
-.filtros-scroll{display:flex;gap:7px;overflow-x:auto;scrollbar-width:none;padding-bottom:2px;margin-bottom:10px;}
-.filtros-scroll::-webkit-scrollbar{display:none;}
-.chip{flex-shrink:0;padding:6px 14px;border-radius:20px;font-size:13px;font-weight:500;border:1.5px solid var(--borde);background:var(--bg);color:var(--texto2);cursor:pointer;user-select:none;transition:all .15s;}
-.chip.on{background:var(--azul);color:#fff;border-color:var(--azul);box-shadow:0 2px 8px rgba(26,35,126,.3);}
-.sort-row{display:flex;gap:6px;align-items:center;}
-.sort-lbl{font-size:11px;color:var(--texto3);flex-shrink:0;}
-.sort-btn{padding:4px 12px;border-radius:20px;font-size:11px;font-family:var(--sans);border:1px solid var(--borde);background:transparent;color:var(--texto2);cursor:pointer;}
-.sort-btn.on{background:var(--azul);color:#fff;border-color:var(--azul);}
-.stats-bar{padding:8px 16px;background:var(--bg);border-bottom:1px solid var(--borde);display:flex;justify-content:space-between;align-items:center;font-size:12px;color:var(--texto3);}
-.col-header{display:flex;align-items:center;padding:7px 16px;background:#F0F3FA;border-bottom:1px solid var(--borde);}
-.col-h-desc{flex:1;font-size:10px;font-weight:600;color:var(--texto3);text-transform:uppercase;letter-spacing:.6px;}
-.col-h-precios{display:flex;flex-shrink:0;}
-.col-h-p{font-size:10px;font-weight:600;color:var(--texto3);text-transform:uppercase;letter-spacing:.5px;text-align:right;padding:0 6px;}
-.w-siva{width:70px;}.w-ef{width:90px;}.w-tc{width:88px;}
-.lista{background:var(--card);}
-.item{display:flex;align-items:center;padding:12px 16px;gap:11px;border-bottom:1px solid var(--borde);cursor:default;}
-.item:active{background:#F4F6FB;}
-.item-ico{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
-.item-info{flex:1;min-width:0;}
-.item-nom{font-size:14px;font-weight:500;color:var(--texto);line-height:1.35;margin-bottom:4px;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;}
-.item-nom mark,.badge-cod mark,.badge-prov mark{background:#FFF176;color:var(--texto);border-radius:2px;padding:0 1px;}
-.item-badges{display:flex;gap:4px;flex-wrap:wrap;align-items:center;}
-.badge{font-size:10px;padding:2px 7px;border-radius:20px;background:var(--bg);color:var(--texto2);border:1px solid var(--borde);}
-.badge-cod{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;background:#E3F2FD;color:#1565C0;border:1px solid #BBDEFB;font-weight:600;}
-.badge-prov{font-family:var(--mono);font-size:10px;padding:2px 7px;border-radius:4px;background:#EDE7F6;color:#4527A0;border:1px solid #D1C4E9;}
-.item-precios{display:flex;align-items:center;flex-shrink:0;}
-.p-col{text-align:right;padding:0 6px;}
-.p-div{width:1px;height:28px;background:var(--borde);}
-.p-siva-val{font-family:var(--mono);font-size:11px;color:var(--texto2);}
-.p-siva-lbl{font-size:9px;color:var(--texto3);margin-top:1px;}
-.p-ef-val{font-size:17px;font-weight:600;color:var(--texto);line-height:1.1;}
-.p-ef-lbl{font-size:9px;color:var(--texto3);margin-top:2px;}
-.p-tc-val{font-size:14px;font-weight:600;color:var(--rojo);line-height:1.1;}
-.p-tc-lbl{font-size:9px;color:var(--texto3);margin-top:2px;}
-.estado{text-align:center;padding:52px 24px;background:var(--card);}
-.estado-ico{font-size:48px;margin-bottom:14px;opacity:.3;}
-.estado h3{font-size:17px;font-weight:500;color:var(--texto2);margin-bottom:6px;}
-.estado p{font-size:13px;color:var(--texto3);line-height:1.5;}
-.ver-mas{text-align:center;padding:16px;background:var(--card);border-top:1px solid var(--borde);}
-.ver-mas button{padding:11px 28px;background:var(--bg);color:var(--texto2);border:1.5px solid var(--borde);border-radius:var(--radio);font-size:14px;font-family:var(--sans);cursor:pointer;font-weight:500;}
-.cargando{text-align:center;padding:52px 24px;background:var(--card);}
-.spinner{width:36px;height:36px;border:3px solid var(--borde);border-top-color:var(--azul);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 14px;}
-@keyframes spin{to{transform:rotate(360deg);}}
-.cargando p{font-size:14px;color:var(--texto3);}
-.footer{padding:20px 16px;text-align:center;font-size:11px;color:var(--texto3);background:var(--bg);}
-@media(min-width:640px){
-  .header{padding:18px 28px 16px;}
-  .filtros-section{padding:12px 28px 10px;}
-  .stats-bar,.col-header{padding:8px 28px;}
-  .item{padding:14px 28px;}
-  .lista-wrap{max-width:860px;margin:0 auto;}
-}
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+  :root{
+    --rojo:#C4281B;
+    --rojo-dark:#8F1D13;
+    --amarillo:#F2B705;
+    --carbon:#15130F;
+    --carbon-2:#1D1A14;
+    --carbon-3:#27231A;
+    --borde:#37311F;
+    --papel:#ECE5D3;
+    --texto:#EDE7D8;
+    --gris:#938C77;
+  }
+  html{scroll-behavior:smooth;}
+  body{background:var(--carbon);color:var(--texto);font-family:'Inter',sans-serif;overflow-x:hidden;}
+  img,svg{display:block;}
+  a{color:inherit;}
+
+  /* ===== textura de fondo sutil ===== */
+  body::before{
+    content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+    background-image:
+      repeating-linear-gradient(135deg, rgba(242,183,5,0.015) 0 2px, transparent 2px 14px);
+  }
+
+  /* ===== NAV ===== */
+  nav{position:fixed;top:0;left:0;right:0;z-index:200;display:flex;align-items:center;justify-content:space-between;padding:20px 56px;background:rgba(21,19,15,0.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--borde);}
+  .logo{display:flex;align-items:center;gap:12px;}
+  .logo-diamond{width:34px;height:34px;background:var(--amarillo);border:2.5px solid #171410;border-radius:5px;transform:rotate(45deg);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 6px rgba(0,0,0,.35);}
+  .logo-diamond span{transform:rotate(-45deg);font-family:'Anton',sans-serif;font-size:10px;color:#171410;letter-spacing:.5px;}
+  .logo-txt{font-family:'Anton',sans-serif;font-size:24px;letter-spacing:1px;line-height:1;}
+  .logo-txt span{color:var(--rojo);}
+  .logo-sub{font-family:'Oswald',sans-serif;font-size:9px;font-weight:600;letter-spacing:3px;color:var(--gris);text-transform:uppercase;margin-top:2px;}
+  .nav-links{display:flex;align-items:center;gap:38px;}
+  .nav-links a{font-family:'Oswald',sans-serif;font-size:12px;font-weight:500;letter-spacing:2px;text-transform:uppercase;color:#bdb6a1;text-decoration:none;transition:color .2s;}
+  .nav-links a:hover{color:var(--amarillo);}
+  .btn-nav{background:var(--rojo);color:#fff!important;padding:11px 22px;border-radius:3px;font-weight:600!important;}
+  .btn-nav:hover{background:var(--rojo-dark);}
+  .nav-toggle{display:none;}
+
+  /* ===== HERO ===== */
+  .hero{position:relative;z-index:1;min-height:100vh;display:flex;align-items:center;padding:140px 56px 80px;gap:60px;}
+  .hero-left{flex:1;max-width:600px;}
+  .eyebrow{display:inline-flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:2px;color:var(--amarillo);background:rgba(242,183,5,0.08);border:1px solid rgba(242,183,5,0.25);padding:6px 14px;border-radius:2px;margin-bottom:28px;}
+  .eyebrow .p{width:6px;height:6px;background:var(--amarillo);border-radius:50%;animation:blink 1.8s infinite;}
+  @keyframes blink{0%,100%{opacity:1}50%{opacity:.25}}
+  h1.hero-title{font-family:'Anton',sans-serif;font-size:clamp(48px,6.2vw,84px);line-height:.95;letter-spacing:.5px;text-transform:uppercase;margin-bottom:22px;}
+  h1.hero-title .line2{color:var(--rojo);-webkit-text-stroke:0;}
+  .hero-desc{font-size:17px;line-height:1.7;color:#c9c3b0;max-width:480px;margin-bottom:36px;}
+  .hero-desc strong{color:var(--texto);font-weight:600;}
+  .hero-ctas{display:flex;gap:14px;flex-wrap:wrap;margin-bottom:52px;}
+  .btn-primary{background:var(--rojo);color:#fff;padding:16px 32px;border-radius:3px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:all .2s;}
+  .btn-primary:hover{background:var(--rojo-dark);transform:translateY(-2px);}
+  .btn-secondary{background:transparent;color:var(--texto);padding:16px 32px;border-radius:3px;border:1.5px solid var(--borde);font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;text-decoration:none;transition:all .2s;}
+  .btn-secondary:hover{border-color:var(--amarillo);color:var(--amarillo);}
+  .hero-stats{display:flex;gap:44px;}
+  .hstat-num{font-family:'Anton',sans-serif;font-size:34px;color:var(--amarillo);line-height:1;}
+  .hstat-label{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gris);letter-spacing:2px;margin-top:6px;text-transform:uppercase;}
+
+  /* ===== TARJETA DE INSPECCIÓN (elemento firma) ===== */
+  .hero-right{flex-shrink:0;display:flex;align-items:center;justify-content:center;}
+  .tag{
+    position:relative;width:320px;background:var(--papel);border-radius:10px;
+    padding:38px 30px 30px;color:var(--carbon);
+    box-shadow:0 30px 70px rgba(0,0,0,.5), 0 0 0 1px rgba(0,0,0,.05);
+    transform:rotate(3deg);
+  }
+  .tag::before{
+    content:'';position:absolute;top:16px;left:50%;transform:translateX(-50%);
+    width:26px;height:26px;background:var(--carbon);border-radius:50%;
+    box-shadow:inset 0 3px 6px rgba(0,0,0,.5);
+  }
+  .tag-serial{font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:1px;color:#6b6455;margin-top:26px;text-align:center;}
+  .tag-brand{font-family:'Anton',sans-serif;font-size:40px;text-align:center;letter-spacing:1px;margin:14px 0 4px;color:var(--carbon);}
+  .tag-brand span{color:var(--rojo);}
+  .tag-sub{font-family:'Oswald',sans-serif;font-size:11px;font-weight:600;letter-spacing:4px;text-align:center;color:#6b6455;text-transform:uppercase;margin-bottom:22px;}
+  .tag-divider{height:1px;background:repeating-linear-gradient(90deg,#c9c1ac 0 6px,transparent 6px 11px);margin:18px 0;}
+  .tag-row{display:flex;justify-content:space-between;font-family:'IBM Plex Mono',monospace;font-size:11px;color:#6b6455;margin-bottom:8px;}
+  .tag-row b{color:var(--carbon);font-weight:600;}
+  .stamp{
+    position:absolute;bottom:26px;right:-14px;
+    font-family:'Oswald',sans-serif;font-weight:700;font-size:13px;letter-spacing:2px;
+    color:var(--rojo);border:2.5px solid var(--rojo);border-radius:6px;
+    padding:6px 12px;transform:rotate(-8deg);text-transform:uppercase;
+    background:rgba(196,40,27,0.04);
+  }
+
+  /* ===== SECCIONES ===== */
+  .section{position:relative;z-index:1;padding:110px 56px;}
+  .sec-label{display:flex;align-items:center;gap:10px;font-family:'IBM Plex Mono',monospace;font-size:11px;letter-spacing:3px;color:var(--amarillo);text-transform:uppercase;margin-bottom:16px;}
+  .sec-label::before{content:'';width:22px;height:2px;background:var(--amarillo);}
+  .sec-title{font-family:'Anton',sans-serif;font-size:clamp(32px,4.6vw,54px);text-transform:uppercase;line-height:1.02;letter-spacing:.3px;margin-bottom:16px;}
+  .sec-title span{color:var(--rojo);}
+  .sec-desc{font-size:16px;color:#a9a290;max-width:480px;line-height:1.7;margin-bottom:54px;}
+
+  /* SERVICIOS */
+  .serv-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+  .serv-card{
+    position:relative;background:var(--carbon-2);border:1px solid var(--borde);border-radius:8px;
+    padding:32px 28px 26px;transition:border-color .25s,transform .2s;overflow:hidden;
+  }
+  .serv-card:hover{border-color:rgba(242,183,5,0.35);transform:translateY(-3px);}
+  .serv-card::before{content:'';position:absolute;top:14px;right:16px;width:14px;height:14px;border-radius:50%;background:var(--carbon);box-shadow:inset 0 2px 3px rgba(0,0,0,.6);}
+  .serv-code{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gris);letter-spacing:1px;margin-bottom:16px;}
+  .serv-icon{width:42px;height:42px;margin-bottom:18px;color:var(--amarillo);}
+  .serv-icon svg{width:100%;height:100%;}
+  .serv-title{font-family:'Oswald',sans-serif;font-size:19px;font-weight:600;text-transform:uppercase;letter-spacing:.5px;margin-bottom:10px;}
+  .serv-desc{font-size:14px;color:#a9a290;line-height:1.65;}
+  .serv-callout{
+    margin-top:14px;padding-top:14px;border-top:1px dashed var(--borde);
+    font-family:'IBM Plex Mono',monospace;font-size:12px;color:var(--amarillo);
+  }
+
+  /* CALLOUT MULTA */
+  .alerta-box{
+    margin-top:54px;background:linear-gradient(135deg,rgba(196,40,27,.12),rgba(196,40,27,.03));
+    border:1px solid rgba(196,40,27,.35);border-radius:8px;padding:30px 34px;
+    display:flex;align-items:center;gap:26px;flex-wrap:wrap;
+  }
+  .alerta-icon{width:46px;height:46px;flex-shrink:0;color:var(--rojo);}
+  .alerta-icon svg{width:100%;height:100%;}
+  .alerta-text{flex:1;min-width:240px;}
+  .alerta-text b{font-family:'Oswald',sans-serif;text-transform:uppercase;letter-spacing:.5px;color:var(--texto);}
+  .alerta-text p{font-size:14px;color:#c2bba7;line-height:1.6;margin-top:4px;}
+  .alerta-cifras{display:flex;gap:26px;}
+  .cif{text-align:center;}
+  .cif-num{font-family:'Anton',sans-serif;font-size:26px;}
+  .cif-num.malo{color:var(--rojo);}
+  .cif-num.bueno{color:var(--amarillo);}
+  .cif-label{font-family:'IBM Plex Mono',monospace;font-size:9px;color:var(--gris);letter-spacing:1px;margin-top:2px;text-transform:uppercase;}
+
+  /* NOSOTROS */
+  .nosotros-grid{display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:center;}
+  .porque-item{display:flex;gap:20px;padding:22px 0;border-bottom:1px solid var(--borde);}
+  .porque-item:first-child{padding-top:0;}
+  .porque-code{font-family:'IBM Plex Mono',monospace;font-size:13px;color:var(--rojo);flex-shrink:0;width:56px;padding-top:2px;}
+  .porque-h{font-family:'Oswald',sans-serif;font-size:17px;font-weight:600;text-transform:uppercase;letter-spacing:.4px;margin-bottom:6px;}
+  .porque-p{font-size:14px;color:#a9a290;line-height:1.65;}
+  .nosotros-visual{background:var(--carbon-2);border:1px solid var(--borde);border-radius:10px;padding:46px;position:relative;overflow:hidden;}
+  .nosotros-visual::after{content:'LPS';position:absolute;font-family:'Anton',sans-serif;font-size:220px;color:rgba(242,183,5,0.03);right:-30px;bottom:-50px;line-height:1;}
+  .nv-big{font-family:'Anton',sans-serif;font-size:64px;color:var(--amarillo);line-height:1;margin-bottom:4px;}
+  .nv-label{font-family:'Oswald',sans-serif;font-size:13px;letter-spacing:3px;color:var(--gris);text-transform:uppercase;margin-bottom:26px;}
+  .nv-quote{font-size:15px;color:#c2bba7;line-height:1.75;position:relative;z-index:1;}
+
+  /* HISTORIA - cadena de inspección */
+  .historia-bg{background:var(--carbon-2);}
+  .cadena{position:relative;display:flex;flex-wrap:wrap;gap:0;}
+  .cadena::before{content:'';position:absolute;top:22px;left:0;right:0;height:2px;background:var(--borde);z-index:0;}
+  .eslabon{position:relative;flex:1;min-width:210px;padding:0 24px 0 0;z-index:1;}
+  .eslabon-punto{width:44px;height:44px;border-radius:50%;background:var(--carbon);border:2px solid var(--rojo);display:flex;align-items:center;justify-content:center;font-family:'IBM Plex Mono',monospace;font-size:11px;font-weight:600;color:var(--amarillo);margin-bottom:20px;}
+  .eslabon-year{font-family:'Anton',sans-serif;font-size:15px;color:var(--rojo);letter-spacing:1px;margin-bottom:6px;}
+  .eslabon-h{font-family:'Oswald',sans-serif;font-size:16px;font-weight:600;text-transform:uppercase;margin-bottom:8px;}
+  .eslabon-p{font-size:13px;color:#a9a290;line-height:1.6;}
+
+  /* TESTIMONIOS */
+  .test-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;}
+  .test-card{background:var(--carbon-2);border:1px solid var(--borde);border-top:3px solid var(--rojo);border-radius:6px;padding:32px;}
+  .test-quote{font-size:14px;color:#c2bba7;line-height:1.7;margin-bottom:22px;}
+  .test-who{display:flex;align-items:center;gap:12px;}
+  .test-avatar{width:38px;height:38px;border-radius:50%;background:var(--rojo);display:flex;align-items:center;justify-content:center;font-family:'Anton',sans-serif;font-size:15px;color:#fff;}
+  .test-name{font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;}
+  .test-loc{font-family:'IBM Plex Mono',monospace;font-size:10px;color:var(--gris);margin-top:2px;}
+
+  /* CONTACTO */
+  .contacto-grid{display:grid;grid-template-columns:1fr 1fr;gap:3px;}
+  .mapa-box{background:var(--carbon-2);border:1px solid var(--borde);border-radius:8px 0 0 8px;overflow:hidden;min-height:440px;position:relative;}
+  .mapa-box iframe{width:100%;height:100%;border:0;filter:invert(90%) hue-rotate(180deg) contrast(85%);position:absolute;inset:0;}
+  .hoja{background:var(--carbon-2);border:1px solid var(--borde);border-radius:0 8px 8px 0;padding:44px 40px;position:relative;}
+  .hoja::before{content:'';position:absolute;left:0;top:24px;bottom:24px;width:1px;background:repeating-linear-gradient(180deg,var(--borde) 0 8px,transparent 8px 14px);}
+  .hoja-h{font-family:'Oswald',sans-serif;font-size:22px;font-weight:600;text-transform:uppercase;margin-bottom:6px;}
+  .hoja-sub{font-size:13px;color:var(--gris);margin-bottom:30px;}
+  .campo{margin-bottom:16px;}
+  .campo label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:2px;color:var(--gris);display:block;margin-bottom:8px;text-transform:uppercase;}
+  .campo input,.campo select,.campo textarea{width:100%;background:var(--carbon);border:1px solid var(--borde);border-radius:4px;padding:13px 14px;color:var(--texto);font-family:'Inter',sans-serif;font-size:14px;outline:none;transition:border-color .2s;}
+  .campo input:focus,.campo select:focus,.campo textarea:focus{border-color:var(--amarillo);}
+  .campo textarea{resize:none;}
+  .btn-enviar{width:100%;background:var(--rojo);color:#fff;border:none;border-radius:4px;padding:15px;font-family:'Oswald',sans-serif;font-size:13px;font-weight:600;letter-spacing:2px;text-transform:uppercase;cursor:pointer;transition:background .2s;}
+  .btn-enviar:hover{background:var(--rojo-dark);}
+
+  .info-strip{display:flex;justify-content:center;gap:60px;flex-wrap:wrap;margin-top:60px;padding-top:50px;border-top:1px solid var(--borde);}
+  .info-item{text-align:center;}
+  .info-label{font-family:'IBM Plex Mono',monospace;font-size:10px;letter-spacing:3px;color:var(--gris);text-transform:uppercase;margin-bottom:8px;}
+  .info-val{font-family:'Oswald',sans-serif;font-size:16px;font-weight:500;color:var(--texto);}
+  .info-val a{text-decoration:none;color:inherit;}
+  .info-val a:hover{color:var(--amarillo);}
+
+  /* FOOTER */
+  footer{position:relative;z-index:1;background:var(--carbon-2);border-top:1px solid var(--borde);padding:36px 56px;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px;}
+  .foot-copy{font-family:'IBM Plex Mono',monospace;font-size:11px;color:var(--gris);letter-spacing:1px;}
+
+  .wa-float{position:fixed;bottom:28px;right:28px;width:58px;height:58px;background:#25D366;border-radius:50%;display:flex;align-items:center;justify-content:center;z-index:300;box-shadow:0 10px 26px rgba(37,211,102,.35);transition:transform .2s;text-decoration:none;}
+  .wa-float:hover{transform:scale(1.08);}
+  .wa-float svg{width:28px;height:28px;fill:#fff;}
+
+  .reveal{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease;}
+  .reveal.in{opacity:1;transform:translateY(0);}
+
+  @media(max-width:980px){
+    .hero{flex-direction:column;padding:120px 24px 60px;text-align:left;}
+    .hero-right{width:100%;justify-content:flex-start;}
+    .nosotros-grid{grid-template-columns:1fr;gap:40px;}
+    .contacto-grid{grid-template-columns:1fr;}
+    .mapa-box{border-radius:8px 8px 0 0;min-height:320px;}
+    .hoja{border-radius:0 0 8px 8px;}
+  }
+  @media(max-width:768px){
+    nav{padding:16px 20px;}
+    .nav-links{display:none;}
+    .section{padding:70px 20px;}
+    .hero-stats{gap:28px;}
+    .cadena::before{display:none;}
+    .cadena{flex-direction:column;gap:28px;}
+    .alerta-box{flex-direction:column;align-items:flex-start;}
+    footer{padding:28px 20px;flex-direction:column;text-align:center;}
+  }
 </style>
 </head>
 <body>
 
-<div class="header">
-  <div class="header-top">
-    <div class="logo">LPS</div>
-    <div class="header-txt">
-      <h1>Lista de Precios LPS</h1>
-      <p>Buscá por descripción, código LPS o proveedor</p>
-    </div>
-    <div class="dolar-pill" title="Dólar BNA oficial - se actualiza automáticamente">💵 <strong id="dolar-val">...</strong></div>
-    <button onclick="recargar()" title="Actualizar" style="background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:50%;width:36px;height:36px;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:16px;color:white;flex-shrink:0;" id="btn-refresh">🔄</button>
-  </div>
-  <div class="search-wrap">
-    <span class="search-ico">🔍</span>
-    <input type="search" id="q" class="search-input"
-      placeholder="Extintor, 04115, DEBANDI, cerradura..."
-      oninput="onInput()" autocomplete="off" autocorrect="off" autocapitalize="none"/>
-    <button class="search-clear" id="btn-clear" onclick="limpiar()">✕</button>
-  </div>
-</div>
-
-<div class="filtros-section">
-  <div class="filtros-scroll" id="filtros">
-    <span class="chip on" onclick="setProv('Todos')">Todos</span>
-  </div>
-  <div class="sort-row">
-    <span class="sort-lbl">Ordenar:</span>
-    <button class="sort-btn on" onclick="setSort('az',this)">A-Z</button>
-    <button class="sort-btn" onclick="setSort('precio_asc',this)">Precio ↑</button>
-    <button class="sort-btn" onclick="setSort('precio_desc',this)">Precio ↓</button>
-    <button class="sort-btn" onclick="setSort('cod',this)">Código</button>
-  </div>
-</div>
-
-<div class="lista-wrap">
-  <div class="stats-bar">
-    <span id="stats-txt">Cargando...</span>
-    <span id="stats-extra"></span>
-  </div>
-  <div class="col-header">
-    <div class="col-h-desc">Producto</div>
-    <div class="col-h-precios">
-      <div class="col-h-p w-siva">S/IVA</div>
-      <div class="col-h-p w-ef">Efectivo</div>
-      <div class="col-h-p w-tc" style="color:var(--rojo)">Tarjeta</div>
+<nav>
+  <div class="logo">
+    <div>
+      <div class="logo-txt">L<span>P</span>S</div>
+      <div class="logo-sub">Líder en Seguridad</div>
     </div>
   </div>
-  <div id="lista"><div class="cargando"><div class="spinner"></div><p>Cargando lista de precios...</p></div></div>
-  <div class="footer">LPS — Lider en Seguridad · La Carlota, Córdoba · lpsliderenseguridad@gmail.com</div>
-</div>
+  <div class="nav-links">
+    <a href="#servicios">Servicios</a>
+    <a href="#nosotros">Nosotros</a>
+    <a href="#historia">Historia</a>
+    <a href="#contacto" class="btn-nav">Consultar</a>
+  </div>
+</nav>
+
+<section class="hero">
+  <div class="hero-left">
+    <div class="eyebrow"><span class="p"></span>La Carlota, Córdoba · Argentina</div>
+    <h1 class="hero-title">Protegemos<br>lo que<br><span class="line2">te importa</span></h1>
+    <p class="hero-desc">Matafuegos y elementos de seguridad industrial, además de cámaras, alarmas, domótica y seguridad rural. <strong>19 años de trabajo</strong> en la región — instalación, mantenimiento y alertas directas a tu WhatsApp, sin call center, sin vueltas.</p>
+    <div class="hero-ctas">
+      <a href="https://wa.me/5493584602508?text=Hola%20LPS%2C%20quiero%20informaci%C3%B3n" class="btn-primary" target="_blank">Hablar por WhatsApp →</a>
+      <a href="#servicios" class="btn-secondary">Ver servicios</a>
+    </div>
+    <div class="hero-stats">
+      <div><div class="hstat-num">2007</div><div class="hstat-label">Fundada</div></div>
+      <div><div class="hstat-num">19</div><div class="hstat-label">Años en la región</div></div>
+      <div><div class="hstat-num">24/7</div><div class="hstat-label">Alertas por WhatsApp</div></div>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="tag">
+      <div class="tag-serial">N° SERIE — LPS-2007</div>
+      <div class="tag-brand">L<span>P</span>S</div>
+      <div class="tag-sub">Líder en Seguridad</div>
+      <div class="tag-divider"></div>
+      <div class="tag-row"><span>Cobertura</span><b>Hogar · Comercio · Campo</b></div>
+      <div class="tag-row"><span>Región</span><b>La Carlota y zona</b></div>
+      <div class="tag-row"><span>Contacto</span><b>358 460-2508</b></div>
+      <div class="tag-divider"></div>
+      <div class="tag-row"><span>Estado</span><b style="color:#8F1D13;">ACTIVO</b></div>
+      <div class="stamp">Verificado</div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="servicios">
+  <div class="reveal">
+    <div class="sec-label">Catálogo de servicios</div>
+    <h2 class="sec-title">Seguridad <span>completa</span><br>para cada lugar</h2>
+    <p class="sec-desc">De la puerta de tu casa al fondo del campo. Un solo proveedor, una sola app de monitoreo.</p>
+  </div>
+  <div class="serv-grid">
+    <div class="serv-card reveal">
+      <div class="serv-code">N° 001</div>
+      <div class="serv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="9" width="7" height="12" rx="2"/><path d="M9.5 9V6.5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1V9"/><path d="M10 5.5V3.5"/><path d="M9 3.5h2.5"/><path d="M15 8.5h3c1 0 1.5.8 1 1.7l-2 3.3"/><path d="M11.5 12.5h2"/></svg></div>
+      <div class="serv-title">Matafuegos</div>
+      <div class="serv-desc">Venta, recarga y mantenimiento con recordatorio automático de vencimiento por WhatsApp.</div>
+      <div class="serv-callout">Recarga desde $15.000</div>
+    </div>
+    <div class="serv-card reveal">
+      <div class="serv-code">N° 002</div>
+      <div class="serv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15.5h16"/><path d="M5.5 15.5c0-4.5 3-7.5 6.5-7.5s6.5 3 6.5 7.5"/><path d="M12 8V6.5"/><path d="M9 15.5v-4"/><path d="M15 15.5v-4"/></svg></div>
+      <div class="serv-title">Seguridad industrial</div>
+      <div class="serv-desc">Señalética, elementos de prevención y equipamiento de seguridad para comercios e industria.</div>
+    </div>
+    <div class="serv-card reveal">
+      <div class="serv-code">N° 003</div>
+      <div class="serv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9v6"/><path d="M3 12h3"/><rect x="6" y="9.5" width="11" height="5" rx="2.5"/><circle cx="17.5" cy="12" r="2"/></svg></div>
+      <div class="serv-title">Cámaras &amp; CCTV</div>
+      <div class="serv-desc">Cámaras IP Hikvision con visión nocturna, detección de movimiento y acceso remoto desde el celular.</div>
+    </div>
+    <div class="serv-card reveal">
+      <div class="serv-code">N° 004</div>
+      <div class="serv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="5" width="12" height="14" rx="2"/><circle cx="12" cy="10" r="2.4"/><path d="M9 15h6"/><path d="M9 17.5h6"/><path d="M4 9c0-1.5 1-2.5 2-3"/><path d="M20 9c0-1.5-1-2.5-2-3"/></svg></div>
+      <div class="serv-title">Sistemas de alarma</div>
+      <div class="serv-desc">Sensores de movimiento y apertura con aviso instantáneo a tu WhatsApp ante cualquier intrusión.</div>
+    </div>
+    <div class="serv-card reveal">
+      <div class="serv-code">N° 005</div>
+      <div class="serv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="6" y="3" width="9" height="18" rx="1.5"/><circle cx="10.5" cy="7.5" r="1.6"/><rect x="8.5" y="11" width="4" height="1.6" rx="0.5"/><circle cx="10.5" cy="16" r="1.3"/><path d="M17 8c1.3.9 1.3 3.1 0 4"/></svg></div>
+      <div class="serv-title">Videoportero</div>
+      <div class="serv-desc">Atendé la puerta desde donde estés. Audio bidireccional y apertura remota de la cerradura.</div>
+    </div>
+    <div class="serv-card reveal">
+      <div class="serv-code">N° 006</div>
+      <div class="serv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11 12 4l8 7"/><path d="M6 10v10h12V10"/><path d="M10 20v-5h4v5"/><path d="M15.5 2.5c1.8.6 3 2.3 3 4.3"/><path d="M15.5 5c.9.3 1.5 1.1 1.5 2.1"/></svg></div>
+      <div class="serv-title">Domótica</div>
+      <div class="serv-desc">Automatizá luces, portones y climatización. Escenas que se activan solas al llegar a tu hogar.</div>
+    </div>
+    <div class="serv-card reveal">
+      <div class="serv-code">N° 007</div>
+      <div class="serv-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21V9"/><path d="M7 21h10"/><rect x="8" y="3" width="8" height="4" rx="0.8" transform="rotate(-15 12 5)"/><circle cx="12" cy="9" r="1.8"/><path d="M9.5 9h-2"/></svg></div>
+      <div class="serv-title">Seguridad rural</div>
+      <div class="serv-desc">Cámaras solares 4G para el campo, GPS para maquinaria y detección de personas fuera del horario habitual.</div>
+    </div>
+  </div>
+
+  <div class="alerta-box reveal">
+    <div class="alerta-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 2 2 20h20L12 2Z"/><path d="M12 9v5"/><circle cx="12" cy="17" r="0.8" fill="currentColor"/></svg></div>
+    <div class="alerta-text"><b>Matafuego vencido = falta grave</b><p>Para la Policía Caminera de Córdoba, circular con el matafuego vencido es una infracción. Te sale mucho más caro que mantenerlo al día.</p></div>
+    <div class="alerta-cifras">
+      <div class="cif"><div class="cif-num malo">$180.000</div><div class="cif-label">Multa (c/dto.)</div></div>
+      <div class="cif"><div class="cif-num bueno">$15.000</div><div class="cif-label">Recarga en LPS</div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="nosotros">
+  <div class="nosotros-grid">
+    <div class="reveal">
+      <div class="sec-label">Por qué elegirnos</div>
+      <h2 class="sec-title">19 años<br><span>cuidando la región</span></h2>
+      <div class="porque-item">
+        <div class="porque-code">01</div>
+        <div><div class="porque-h">Empresa local</div><p class="porque-p">Somos de La Carlota. Llegamos rápido y te atendemos en persona — no somos un call center.</p></div>
+      </div>
+      <div class="porque-item">
+        <div class="porque-code">02</div>
+        <div><div class="porque-h">Todo en un lugar</div><p class="porque-p">Cámaras, alarma, portero, campo y matafuegos con un solo proveedor de confianza.</p></div>
+      </div>
+      <div class="porque-item">
+        <div class="porque-code">03</div>
+        <div><div class="porque-h">Alertas por WhatsApp</div><p class="porque-p">Te avisamos al instante cuando algo pasa, con el WhatsApp que ya usás todos los días.</p></div>
+      </div>
+      <div class="porque-item">
+        <div class="porque-code">04</div>
+        <div><div class="porque-h">Presupuesto sin cargo</div><p class="porque-p">Te armamos una propuesta a medida antes de que decidas nada.</p></div>
+      </div>
+    </div>
+    <div class="nosotros-visual reveal">
+      <div class="nv-big">19</div>
+      <div class="nv-label">Años de trayectoria</div>
+      <p class="nv-quote">Arrancamos en 2007 con matafuegos y prevención contra incendios. Hoy sumamos cámaras, alarmas, domótica, control de plagas y seguridad rural — siempre con la misma idea: estar cerca de la gente de nuestra zona.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section historia-bg" id="historia">
+  <div class="reveal">
+    <div class="sec-label">Nuestra historia</div>
+    <h2 class="sec-title">Desde <span>2007</span> en La Carlota</h2>
+    <p class="sec-desc">Cada etapa sumó un servicio nuevo, sin dejar de lado lo que nos hizo conocidos.</p>
+  </div>
+  <div class="cadena reveal">
+    <div class="eslabon">
+      <div class="eslabon-punto">01</div>
+      <div class="eslabon-year">2007</div>
+      <div class="eslabon-h">Los inicios</div>
+      <p class="eslabon-p">Arrancamos con matafuegos y prevención contra incendios en La Carlota.</p>
+    </div>
+    <div class="eslabon">
+      <div class="eslabon-punto">02</div>
+      <div class="eslabon-year">2012</div>
+      <div class="eslabon-h">Alarmas y CCTV</div>
+      <p class="eslabon-p">Sumamos sistemas de alarma y cámaras para hogares y comercios.</p>
+    </div>
+    <div class="eslabon">
+      <div class="eslabon-punto">03</div>
+      <div class="eslabon-year">2018</div>
+      <div class="eslabon-h">Domótica</div>
+      <p class="eslabon-p">Incorporamos automatización del hogar, porteros inteligentes y control remoto.</p>
+    </div>
+    <div class="eslabon">
+      <div class="eslabon-punto">04</div>
+      <div class="eslabon-year">Hoy</div>
+      <div class="eslabon-h">Campo y control de plagas</div>
+      <p class="eslabon-p">Seguridad rural con cámaras solares, GPS y servicio de control de plagas para hogares y comercios.</p>
+    </div>
+  </div>
+</section>
+
+<section class="section">
+  <div class="reveal">
+    <div class="sec-label">Lo que dicen nuestros clientes</div>
+    <h2 class="sec-title">19 años de <span>confianza</span></h2>
+  </div>
+  <div class="test-grid">
+    <div class="test-card reveal">
+      <p class="test-quote">"Instalaron las cámaras en el negocio y puedo ver todo desde el celular. Respuesta rápida siempre."</p>
+      <div class="test-who"><div class="test-avatar">R</div><div><div class="test-name">Roberto M.</div><div class="test-loc">Comercio · La Carlota</div></div></div>
+    </div>
+    <div class="test-card reveal">
+      <p class="test-quote">"Los matafuegos siempre al día. Me avisan antes de que venzan, sin que tenga que acordarme yo."</p>
+      <div class="test-who"><div class="test-avatar">M</div><div><div class="test-name">María L.</div><div class="test-loc">Hogar · Ucacha</div></div></div>
+    </div>
+    <div class="test-card reveal">
+      <p class="test-quote">"Cámaras solares en el campo, con alerta al WhatsApp si entra alguien. Una tranquilidad enorme."</p>
+      <div class="test-who"><div class="test-avatar">C</div><div><div class="test-name">Carlos P.</div><div class="test-loc">Campo · Zona rural</div></div></div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="contacto">
+  <div class="reveal">
+    <div class="sec-label">Encontranos</div>
+    <h2 class="sec-title">Vení a <span>visitarnos</span></h2>
+  </div>
+  <div class="contacto-grid reveal">
+    <div class="mapa-box">
+      <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3381.5!2d-63.2927!3d-33.4267!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2sAv.+Doctor+Enrique+Gauna+1381%2C+La+Carlota%2C+C%C3%B3rdoba!5e0!3m2!1ses!2sar!4v1700000000000" allowfullscreen loading="lazy"></iframe>
+    </div>
+    <div class="hoja">
+      <div class="hoja-h">Escribinos</div>
+      <p class="hoja-sub">Te respondemos en menos de 24 hs.</p>
+      <div class="campo"><label>Nombre</label><input id="f-nombre" type="text" placeholder="Tu nombre"/></div>
+      <div class="campo"><label>Teléfono / WhatsApp</label><input id="f-tel" type="tel" placeholder="358 XXX-XXXX"/></div>
+      <div class="campo">
+        <label>Me interesa</label>
+        <select id="f-servicio">
+          <option>Cámaras y CCTV</option>
+          <option>Sistema de alarma</option>
+          <option>Videoportero</option>
+          <option>Domótica</option>
+          <option>Seguridad rural / Campo</option>
+          <option>Matafuegos</option>
+          <option>Control de plagas</option>
+        </select>
+      </div>
+      <div class="campo"><label>Mensaje</label><textarea id="f-msg" rows="3" placeholder="Contanos qué necesitás..."></textarea></div>
+      <button class="btn-enviar" onclick="enviarWA()">Enviar por WhatsApp</button>
+    </div>
+  </div>
+
+  <div class="info-strip reveal">
+    <div class="info-item"><div class="info-label">Dirección</div><div class="info-val">Av. Dr. Enrique Gauna 1381, La Carlota</div></div>
+    <div class="info-item"><div class="info-label">Teléfono</div><div class="info-val"><a href="tel:+5493584602508">358 460-2508</a></div></div>
+    <div class="info-item"><div class="info-label">Email</div><div class="info-val"><a href="mailto:lpsliderenseguridad@gmail.com">lpsliderenseguridad@gmail.com</a></div></div>
+    <div class="info-item"><div class="info-label">Horario</div><div class="info-val">Lun a Vie · 8-12 y 16-19:30</div></div>
+  </div>
+</section>
+
+<footer>
+  <div class="logo">
+    <div>
+      <div class="logo-txt" style="font-size:19px;">L<span>P</span>S</div>
+      <div class="logo-sub">Líder en Seguridad</div>
+    </div>
+  </div>
+  <div class="foot-copy">© 2007–2026 LPS Líder en Seguridad · La Carlota, Córdoba</div>
+</footer>
+
+<a href="https://wa.me/5493584602508" class="wa-float" target="_blank" aria-label="WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M17.5 14.4c-.3-.1-1.7-.8-2-1-.3-.1-.5-.1-.7.1-.2.3-.8 1-1 1.2-.2.2-.4.2-.6.1-.3-.1-1.3-.5-2.4-1.5-.9-.8-1.5-1.8-1.7-2.1-.2-.3 0-.5.1-.6.1-.1.3-.4.4-.5.1-.2.2-.3.3-.5.1-.2 0-.4 0-.5 0-.1-.7-1.6-.9-2.2-.2-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4-.3.3-1 1-1 2.4s1.1 2.8 1.2 3c.1.2 2.2 3.4 5.3 4.7.7.3 1.3.5 1.8.6.7.2 1.4.2 1.9.1.6-.1 1.7-.7 2-1.4.2-.7.2-1.2.2-1.4-.1-.1-.3-.2-.6-.3z"/><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3.1.8.8-3-.2-.3A8.2 8.2 0 1 1 12 20.2z"/></svg>
+</a>
 
 <script>
-// ── CONFIGURACIÓN ──────────────────────────────────────────────────────
-const CSV_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRXITeiYe4R_wUNdwtKC7reDhr7dEX36VYoV3tiHudWwb5GImdEClZPeR59VXZPmd-85KpYX7wWljVh/pub?gid=41474054&single=true&output=csv';
-
-// COLUMNAS (índice base 0, según tu sheet):
-// A=0 CAT | B=1 PROVEEDOR | C=2 CÓD.PROV | D=3 DESCRIPCIÓN
-// E=4 PRECIO COSTO | F=5 BULTO | G=6 %MARGEN | H=7 PRECIO BASE
-// I=8 PRECIO S/IVA | J=9 PRECIO FINAL C/IVA | K=10 COD.LPS
-const COL = {
-  prov:  1,   // B - PROVEEDOR
-  codProv: 2, // C - Código del proveedor (ej: DD-DD14461)
-  desc:  3,   // D - DESCRIPCIÓN
-  siva:  8,   // I - PRECIO S/IVA
-  final: 9,   // J - PRECIO FINAL C/IVA
-  codLPS:10,  // K - CÓDIGO LPS (tu número interno, ej: 04115)
-  cat:   0,   // A - CATEGORÍA
-};
-
-const COLORES = {
-  'DEBANDI':    {bg:'#E3F2FD',emoji:'🔨'},
-  'ECOLED':     {bg:'#E8F5E9',emoji:'💡'},
-  'PINTURERIA': {bg:'#FFF3E0',emoji:'🎨'},
-  'CARBUROX':   {bg:'#FCE4EC',emoji:'🔥'},
-  'TOSI':       {bg:'#EDE7F6',emoji:'🛡'},
-  'CBA PAIS':   {bg:'#E0F7FA',emoji:'📦'},
-  'CEG':        {bg:'#E8F5E9',emoji:'🛒'},
-  'ESLINGA':    {bg:'#FFF8E1',emoji:'⛓'},
-};
-
-const POR_PAG = 25;
-let todos=[], provAct='Todos', sortAct='az', pagina=1, resultados=[], proveedores=['Todos'];
-
-// ── SPLIT CSV con soporte de comillas ──────────────────────────────────
-function splitRow(line){
-  const c=[]; let cur='',inQ=false;
-  for(let i=0;i<line.length;i++){
-    const ch=line[i];
-    if(ch==='"'){inQ=!inQ;}
-    else if(ch===','&&!inQ){c.push(cur.replace(/^"|"$/g,'').trim());cur='';}
-    else cur+=ch;
-  }
-  c.push(cur.replace(/^"|"$/g,'').trim());
-  return c;
+function enviarWA(){
+  const n=document.getElementById('f-nombre').value||'sin nombre';
+  const t=document.getElementById('f-tel').value||'sin telefono';
+  const s=document.getElementById('f-servicio').value;
+  const m=document.getElementById('f-msg').value||'';
+  const txt='Hola LPS! Soy '+n+', tel: '+t+'. Me interesa: '+s+(m?'. '+m:'');
+  window.open('https://wa.me/5493584602508?text='+encodeURIComponent(txt),'_blank');
 }
-
-// ── PARSEAR NÚMERO ─────────────────────────────────────────────────────
-function num(v){
-  if(!v) return 0;
-  const s=String(v).replace(/[^\d.,]/g,'');
-  if(!s) return 0;
-  const dc=s.lastIndexOf(','), dp=s.lastIndexOf('.');
-  const clean = dc>dp ? s.replace(/\./g,'').replace(',','.') : s.replace(/,/g,'');
-  return parseFloat(clean)||0;
-}
-
-// ── PARSEAR CSV ────────────────────────────────────────────────────────
-function parseCSV(text){
-  const lines = text.trim().split('\n');
-
-  // Buscar la fila de encabezados (la que tiene DESCRIPCI + PROVEEDOR)
-  let hi = -1;
-  for(let i=0; i<Math.min(10,lines.length); i++){
-    const joined = splitRow(lines[i]).join(' ').toUpperCase()
-      .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-    if(joined.includes('DESCRIPCI') && joined.includes('PROVEEDOR')){
-      hi=i; break;
-    }
-  }
-  if(hi<0){ console.error('No se encontró fila de encabezados'); return []; }
-
-  // Proveedores válidos (solo texto, sin números)
-  const provsSet = new Set();
-  const productos = [];
-
-  for(let i=hi+1; i<lines.length; i++){
-    const row = splitRow(lines[i]);
-    const g = idx => (row[idx]||'').trim();
-
-    const desc    = g(COL.desc);
-    const prov    = g(COL.prov).toUpperCase().trim();
-    const codLPS  = g(COL.codLPS);   // tu código interno (ej: 04115)
-    const codProv = g(COL.codProv);  // código proveedor  (ej: DD-DD14461)
-    const cat     = g(COL.cat);
-
-    if(!desc) continue;
-
-    // Filtrar proveedores inválidos (solo letras, no números/porcentajes)
-    const provValido = prov && /^[A-ZÁÉÍÓÚÑÜ\s]+$/.test(prov) && prov.length > 1 && prov.length < 30;
-
-    let siva  = num(g(COL.siva));
-    let final = num(g(COL.final));
-
-    if(final<=0 && siva>0)  final = Math.round(siva*1.21);
-    if(siva<=0  && final>0) siva  = Math.round(final/1.21);
-    if(final<=0) continue;
-
-    if(provValido) provsSet.add(prov);
-
-    productos.push({
-      codLPS,   // número interno LPS (ej: 04115)
-      codProv,  // código del proveedor (ej: DD-DD14461)
-      desc,
-      prov: provValido ? prov : '',
-      cat,
-      siva:  Math.round(siva),
-      final: Math.round(final)
-    });
-  }
-
-  proveedores = ['Todos', ...Array.from(provsSet).sort()];
-  return productos;
-}
-
-// ── CARGAR ─────────────────────────────────────────────────────────────
-async function cargar(){
-  try{
-    const r = await fetch(CSV_URL+'&t='+Date.now());
-    if(!r.ok) throw new Error('HTTP '+r.status);
-    const text = await r.text();
-    todos = parseCSV(text);
-    if(todos.length===0) throw new Error('Sin datos. Verificá que el Sheet esté publicado como CSV.');
-    document.getElementById('stats-txt').textContent = todos.length.toLocaleString('es-AR')+' productos disponibles';
-    renderFiltros();
-    mostrarInicio();
-  }catch(e){
-    console.error(e);
-    document.getElementById('lista').innerHTML=`
-      <div class="estado">
-        <div class="estado-ico">⚙️</div>
-        <h3>Error al cargar</h3>
-        <p>${e.message}</p>
-      </div>`;
-    document.getElementById('stats-txt').textContent='Error al cargar';
-  }
-}
-
-// ── UI ──────────────────────────────────────────────────────────────────
-function renderFiltros(){
-  document.getElementById('filtros').innerHTML = proveedores.map(p=>{
-    const ico = COLORES[p]?.emoji || '';
-    return `<span class="chip${p===provAct?' on':''}" onclick="setProv('${p.replace(/'/g,"\\'")}')">
-      ${ico} ${p}
-    </span>`;
-  }).join('');
-}
-
-function setProv(p){provAct=p;pagina=1;renderFiltros();buscar();}
-function setSort(s,el){
-  sortAct=s;pagina=1;
-  document.querySelectorAll('.sort-btn').forEach(b=>b.classList.remove('on'));
-  el.classList.add('on');
-  buscar();
-}
-function onInput(){
-  document.getElementById('btn-clear').style.display = document.getElementById('q').value?'block':'none';
-  pagina=1; buscar();
-}
-function limpiar(){
-  document.getElementById('q').value='';
-  document.getElementById('btn-clear').style.display='none';
-  provAct='Todos';pagina=1;renderFiltros();buscar();
-}
-function ars(n){return '$'+Math.round(n).toLocaleString('es-AR');}
-function hl(txt,q){
-  if(!q||!txt) return txt;
-  try{
-    const re=new RegExp('('+q.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')+')','gi');
-    return String(txt).replace(re,'<mark>$1</mark>');
-  }catch(e){return txt;}
-}
-function mostrarInicio(){
-  document.getElementById('lista').innerHTML=`
-    <div class="estado">
-      <div class="estado-ico">🔍</div>
-      <h3>Escribí para buscar</h3>
-      <p>Por descripción: <b>extintor, cerradura...</b><br>
-         Por código LPS: <b>04115</b><br>
-         Por código proveedor: <b>DD-DD14461</b></p>
-    </div>`;
-}
-
-// ── BUSCAR ──────────────────────────────────────────────────────────────
-function buscar(){
-  const q=(document.getElementById('q').value||'').trim();
-  const qn=q.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-
-  if(!q && provAct==='Todos'){mostrarInicio();return;}
-
-  let res=[...todos];
-  if(provAct!=='Todos') res=res.filter(p=>p.prov===provAct);
-
-  if(qn){
-    const terms=qn.split(/\s+/).filter(Boolean);
-    res=res.filter(p=>{
-      const hay=[p.desc, p.codLPS, p.codProv, p.prov, p.cat]
-        .join(' ').toLowerCase()
-        .normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-      return terms.every(t=>hay.includes(t));
-    });
-  }
-
-  if(sortAct==='az')           res.sort((a,b)=>a.desc.localeCompare(b.desc,'es'));
-  else if(sortAct==='precio_asc')   res.sort((a,b)=>a.final-b.final);
-  else if(sortAct==='precio_desc')  res.sort((a,b)=>b.final-a.final);
-  else if(sortAct==='cod')     res.sort((a,b)=>a.codLPS.localeCompare(b.codLPS,'es',{numeric:true}));
-
-  resultados=res;
-  const total=res.length;
-
-  document.getElementById('stats-txt').textContent=
-    total===0?'Sin resultados':
-    total===1?'1 producto encontrado':
-    total.toLocaleString('es-AR')+' productos encontrados';
-  document.getElementById('stats-extra').textContent=
-    total>POR_PAG?`Mostrando ${Math.min(pagina*POR_PAG,total)} de ${total}`:'';
-
-  const lista=document.getElementById('lista');
-  if(!total){
-    lista.innerHTML=`
-      <div class="estado">
-        <div class="estado-ico">😕</div>
-        <h3>No encontramos "${q}"</h3>
-        <p>Probá con otra palabra o cambiá el proveedor</p>
-      </div>`;
-    return;
-  }
-
-  const slice=res.slice(0,pagina*POR_PAG);
-  lista.innerHTML=slice.map(p=>{
-    const cfg=COLORES[p.prov]||{bg:'#F5F5F5',emoji:'📦'};
-    const tarjeta=Math.round(p.final*1.20);
-    return `
-      <div class="item">
-        <div class="item-ico" style="background:${cfg.bg}">${cfg.emoji}</div>
-        <div class="item-info">
-          <div class="item-nom">${hl(p.desc,q)}</div>
-          <div class="item-badges">
-            ${p.codLPS  ? `<span class="badge-cod">${hl(p.codLPS,q)}</span>` : ''}
-            ${p.codProv ? `<span class="badge-prov">${hl(p.codProv,q)}</span>` : ''}
-            ${p.prov    ? `<span class="badge">${p.prov}</span>` : ''}
-            ${p.cat     ? `<span class="badge" style="opacity:.6">${p.cat}</span>` : ''}
-          </div>
-        </div>
-        <div class="item-precios">
-          <div class="p-col w-siva">
-            <div class="p-siva-val">${ars(p.siva)}</div>
-            <div class="p-siva-lbl">S/IVA</div>
-          </div>
-          <div class="p-div"></div>
-          <div class="p-col w-ef">
-            <div class="p-ef-val">${ars(p.final)}</div>
-            <div class="p-ef-lbl">💵 Efectivo</div>
-          </div>
-          <div class="p-div"></div>
-          <div class="p-col w-tc">
-            <div class="p-tc-val">${ars(tarjeta)}</div>
-            <div class="p-tc-lbl">💳 Tarjeta</div>
-          </div>
-        </div>
-      </div>`;
-  }).join('')+(total>pagina*POR_PAG?`
-    <div class="ver-mas">
-      <button onclick="verMas()">Ver más (${total-pagina*POR_PAG} restantes) ↓</button>
-    </div>`:'');
-}
-
-function verMas(){pagina++;buscar();}
-
-async function recargar(){
-  const btn=document.getElementById('btn-refresh');
-  btn.style.transform='rotate(360deg)';btn.style.transition='transform .6s';
-  document.getElementById('lista').innerHTML='<div class="cargando"><div class="spinner"></div><p>Actualizando...</p></div>';
-  await cargar();
-  setTimeout(()=>{btn.style.transform='';btn.style.transition='';},700);
-  if(document.getElementById('q').value||provAct!=='Todos') buscar();
-}
-
-// ── DÓLAR BNA AUTOMÁTICO ──────────────────────────────────────
-async function fetchDolar() {
-  try {
-    const r = await fetch('https://api.bluelytics.com.ar/v2/latest');
-    const d = await r.json();
-    const val = d.oficial.value_sell;
-    document.getElementById('dolar-val').textContent = '$' + Math.round(val).toLocaleString('es-AR');
-    return Math.round(val);
-  } catch(e) {
-    document.getElementById('dolar-val').textContent = '$1.420';
-    return 1420;
-  }
-}
-
-cargar();
-fetchDolar();
+const io=new IntersectionObserver(es=>{
+  es.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+},{threshold:0.12});
+document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
 </script>
+
 </body>
 </html>
